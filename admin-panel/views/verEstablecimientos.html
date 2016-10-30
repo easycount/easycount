@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase">Establecimientos</h1>
+        <i>Consulta todos los establecimientos de EasyCount</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="tablesaw tablesaw-stack table" data-tablesaw-mode="stack"  id="dataTables-promociones">
+                    <thead>
+                    <tr id="cabeceraTabla">
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" style="text-align:center;">Empresa</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Coordenadas</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Ciudad</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Comunidad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="contentTabla" ng-repeat="establecimiento in establecimientos">
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Nombre</b><span class="tablesaw-cell-content">{{establecimiento.nombre}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Empresa</b><span class="tablesaw-cell-content">{{establecimiento.empresa}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Coordenadas</b><span class="tablesaw-cell-content">{{establecimiento.coordenadas}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Ciudad</b><span class="tablesaw-cell-content">{{establecimiento.ciudad}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Comunidad</b><span class="tablesaw-cell-content">{{establecimiento.comunidad}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.ro

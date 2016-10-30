@@ -1,0 +1,292 @@
+<html lang="es" ng-app="corporativeApp" ng-controller="corporativeAppCtrl as vm">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EasyCount</title>
+    <link rel="shortcut icon" href="../images/easycountlogo.png">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="styles/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="styles/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/creative.css" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.js"></script>
+    <script src="/views/js/main.js"></script>
+
+    <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+          integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+          crossorigin="anonymous"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></head>
+
+<body>
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top"><img style="display:inline;margin-right: 8px;" src="../images/easycountlogo.png" width="25px"/><span style="display:inline;text-transform:none!important">Easy<div style="display:inline;opacity:1;font-weight:bold;">Count</div></span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="/">INICIO</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/contacto">CONTACTO</a>
+                </li>
+                <li>
+                    <% if(user==null){%>
+                    <a class="page-scroll" href="/login">INICIAR SESION</a>
+                    <% }else{ %>
+                    <a class="page-scroll" href="#" ng-click="vm.irAPanel()">ACCEDER A MI PANEL</a>
+                    <% }%>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">DESCARGAS</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
+<header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>ÚNETE A LA REVOLUCIÓN DE LOS SUPERMERCADOS</h1>
+                <hr>
+                <p>EasyCount es un sistema de gestión de compras, que te permite tener un control de gastos a tiempo real de tus compras,
+                    además de poder compartir tu opinión sobre los productos que has comprado, y eso es solo una pequeña parte...</p>
+                <a href="#services" id="saberMas" class="btn btn-primary btn-xl page-scroll">SABER MÁS</a>
+                <a href="/login" class="btn btn-primary btn-xl page-scroll">UNIRME</a>
+
+            </div>
+        </div>
+    </header>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">SERVICIOS</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img src="images/icons/iconoValoraciones.png" alt="iconoValoraciones"/>
+                        <h3>Sistema de Valoraciones</h3>
+                        <p class="text-muted">Comparte tu opinión y valoración sobre los productos con el resto de la comunidad</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoEstadisticas.png" alt="iconoEstadisticas" data-wow-delay=".1s"/>
+                        <h3>Estadísticas</h3>
+                        <p class="text-muted">Consulta tus gustos y valoraciones y compáralas con el resto de usuarios</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoEnVivo.png" alt="iconoEnVivo" data-wow-delay=".2s"/>
+                        <h3>Compra en Vivo</h3>
+                        <p class="text-muted">Conoce en todo momento cuánto estás gastando en tu compra, y obtén información de los productos</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoListas.png" alt="iconoListas" data-wow-delay=".3s"/>
+                        <h3>Lista de la Compra</h3>
+                        <p class="text-muted">Crea tus propias listas o accede a listas ya creadas por EasyCount y tus comercios favoritos</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoPromos.png" alt="iconoPromos" data-wow-delay=".4s"/>
+                        <h3>Promociones Personalizadas</h3>
+                        <p class="text-muted">Recibe ofertas de tu interés a partir de tus productos más comprados</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoRestricciones.png" alt="iconoRestricciones" data-wow-delay=".5s"/>
+                        <h3>Restricciones Alimenticias </h3>
+                        <p class="text-muted">Si tienes alguna alergia a ciertos alimentos o quieres evitar el consumo de algunos, te lo indicaremos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 text-center">
+                <h4><i>¿Quieres saber más?</i></h4>
+                <a href="#video" class="btn btn-primary btn-xl page-scroll">VER VÍDEO</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">¿ERES UN COMERCIO?</h2>
+                    <hr class="light">
+                    <p class="text-faded">Si quieres que tu comercio esté listado en nuestro sistema, contacta con nosotros a través del formulario de la web.</p>
+                    <a href="#services" class="page-scroll btn btn-default btn-xl">IR AL FORMULARIO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">NUESTRO INCREÍBLE EQUIPO</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img src="images/icons/iconoMonche.png" alt="iconoMonche"/>
+                        <h3>Ramón Arenal</h3>
+                        <p class="text-muted">Jefe de proyecto y programador back-end. El entusiasta que necesita todo equipo de desarrollo.</p>
+                        <a href="https://www.facebook.com/ramon.arenal?fref=ts"> <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="https://twitter.com/monchuuu"> <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="#"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoDani.png" alt="iconoDani" data-wow-delay=".1s"/>
+                        <h3>Daniel Sánchez</h3>
+                        <p class="text-muted">Programador back-end. Trabajador nato, constancia y esfuerzo. Experiencia previa en SIME S.L.</p>
+                        <a href="https://www.facebook.com/ramon.arenal?fref=ts"> <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="https://twitter.com/monchuuu"> <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="#"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoEnri.png" alt="iconoEnri" data-wow-delay=".2s"/>
+                        <h3>Enrique Santisteban</h3>
+                        <p class="text-muted">Programador front-end. Responsabilidad al servicio del grupo. Experiencia contrastada en NanoNino S.L.</p>
+                        <a href="https://www.facebook.com/ramon.arenal?fref=ts"> <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="https://twitter.com/monchuuu"> <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="#"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoMarc.png" alt="iconoMarc" data-wow-delay=".3s"/>
+                        <h3>Marc Ibi</h3>
+                        <p class="text-muted">Programador front-end. Alto rendimiento y experiencia contrastada en DragonStack S.L.</p>
+                        <a href="https://www.facebook.com/ramon.arenal?fref=ts"> <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="https://twitter.com/monchuuu"> <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="#"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoMaik.png" alt="iconoMaik" data-wow-delay=".4s"/>
+                        <h3>Miguel Soriano</h3>
+                        <p class="text-muted">Programador gráfico. Nuestra voz de la conciencia, el Pepito Grillo del desarrollo web.</p>
+                        <a href="https://www.facebook.com/ramon.arenal?fref=ts"> <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="https://twitter.com/monchuuu"> <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="#"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <img class="wow bounceIn" src="images/icons/iconoFran.png" alt="iconoFran" data-wow-delay=".5s"/>
+                        <h3>Francisco Laport</h3>
+                        <p class="text-muted">Trabajador emprendedor y ambicioso. Programador front-end y de realidad virtual.</p>
+                        <a href="https://www.facebook.com/ramon.arenal?fref=ts"> <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="https://twitter.com/monchuuu"> <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i> </a>
+                        <a href="#"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="bg-dark" id="video">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>¿AÚN NO TIENES CLARO QUE ES EASYCOUNT?</h2>
+                <hr class="primary">
+                <h4><i>¡A por las palomitas!</i></h4>
+                <div id="videoYT" class="col-lg-12 col-md-12 col-xs-12">
+                    <iframe class="" src="https://www.youtube.com/embed/yIuRU_RDedA" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">EASYCOUNT DONDE QUIERAS</h2>
+                    <hr class="primary">
+                    <p>Sácale el máximo partido a EasyCount utilizando nuestra app móvil. Descárgatela y disfruta de todas sus ventajas.</p>
+                </div>
+                <div class="col-lg-12  text-center">
+                   <a href=""> <img src="images/icons/iconoGooglePlay.png" alt="iconoGooglePlay"/></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+</body>
+</html>

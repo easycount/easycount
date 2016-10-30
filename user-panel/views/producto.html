@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>Ficha Producto</strong></h1>
+        <i>Aquí encontrarás todos los detalles del producto</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row row-eq-height  ">
+    <div id="contenedorImagenProducto" class="col-md-6 col-xs-12">
+        <img id="imagenProducto"  src="{{vm.producto.photo}}" alt="Imagen del producto">
+    </div>
+
+    <div id="descripcionProducto" class="col-md-4 col-xs-12 panel panel-default ">
+
+        <ul class="list-group ">
+            <li class="list-group-item text-center"><h2> <strong>{{vm.producto.name}}</strong></h2></li>
+            <li class="list-group-item text-center">
+                <div ng-if="vm.estrellas[0]==false">
+                    Aún no hay valoraciones.<br>
+                    <div ng-if="vm.productoComprado && !vm.productoValorado">
+                    ¡Se el primero en valorar!
+                    </div>
+                </div>
+                <div ng-if="vm.estrellas[0]==true" class="estrellas">
+                    <span ng-class="{'estrellaSeleccionada': vm.estrellas[0]}" >★</span>
+                    <span ng-class="{'estrellaSeleccionada': vm.estrellas[1]}" >★</span>
+                    <span ng-class="{'estrellaSeleccionada': vm.estrellas[2]}" >★</span>
+                    <span ng-class="{'estrellaSeleccionada': vm.estrellas[3]}" >★</span>
+                    <span ng-class="{'estrellaSeleccionada': vm.estrellas[4]}" >★</span>
+                </div>
+                <button ng-if="vm.productoComprado && !vm.productoValorado" type="button" ng-click="vm.botonPuntuar('Event', vm.producto.name, vm.producto._id)" class="btn btn-info">Valorar</button>
+                <select ng-model="vm.empresaVal" ng-if="vm.productoComprado && !vm.productoValorado">
+                    <option ng-repeat="emp in vm.empresasComprado" ng-if="emp.valorado==false" value="{{emp.id_empresa}}">{{emp.nombreEmpresa}}</option>
+                </select>
+            </li>
+            <li class="list-group-item"><strong>Tipo:</strong> {{vm.producto.type}}</li>
+            <li class="list-group-item"> <button class="btn btn-easy" ng-click="vm.mostrarInformacion()">Información nutricional</button></li>
+        </ul>
+    </div>
+    <div class="col-lg-12 none" id="descripcionDetalle">
+        <section ng-bind-html="vm.contenidoDescripcion"> </section>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong class="uppercase" > Comentarios</strong>
+    </div>
+    <div class="panel-body">
+         <span ng-if="vm.comentarios.texto[0]==empty">
+            No hay comentarios.
+             <span ng-if="vm.productoComprado && !vm.productoOpinado">
+                 ¡Sé el primero en opinar!
+             </span>
+        </span>
+        <div>
+            <button ng-if="vm.productoComprado && !vm.productoOpinado" type="button" ng-click="vm.botonAlert('Event', vm.producto.name, vm.producto._id)" class="btn btn-success">Opinar</button>
+            <select ng-model="vm.empresaOpi" ng-if="vm.productoComprado && !vm.productoOpinado">
+                <option ng-repeat="emp in vm.empresasComprado" ng-if="emp.opinado==false" value="{{emp.id_empresa}}">{{emp.nombreEmpresa}}</option>
+            </select>
+
+            <table ng-if="vm.comentarios.texto[0]!=empty"  class="tablesaw tablesaw-stack table">
+                <div class="panel-heading">
+                    <span id="tod" class="btn-easy btn headerListas headerListasSel" ng-click="vm.cambiarComentarios(0)">Mostrar todos ({{vm.numComents}})</span>
+                    <span id="pos" class="btn-easy btn headerListas" ng-click="vm.cambiarComentarios(1)">Positivos ({{vm.numComentsPos}})</span>
+                    <span id="neg" class="btn-easy btn headerListas" ng-click="vm.cambiarComentarios(2)">Negativos ({{vm.numComentsNeg}})</span>
+                </div>
+                <thead>
+                    <tr id="cabeceraTabla">
+                        <th class="col-md-2">USUARIO</th>
+                        <th class="col-md-10">COMENTARIO</th>
+                        <th class="col-md-8">EMPRESA</th>
+                        <th class="col-md-2">CARÁCTER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="contentTabla" class="ng-scope" ng-repeat="usuarioComentario in vm.comentarios.usuarios track by $index" >
+                        <td><b class="tablesaw-cell-label col-md-1" >USUARIO</b><span class="tablesaw-cell-content ng-binding">{{vm.comentarios.usuarios[$index]}}</span></td>
+                        <td><b class="tablesaw-cell-label col-md-11">COMENTARIO</b><span class="tablesaw-cell-content ng-binding">{{vm.comentarios.texto[$index]}}</span></td>
+                        <td><b class="tablesaw-cell-label col-md-11">EMPRESA</b><span class="tablesaw-cell-content ng-binding"><img width="100" src="{{vm.comentarios.empresa[$index]}}" /></span></td>
+                        <td style="text-align: center !important;"><b class="tablesaw-cell-label col-md-11">CARÁCTER</b>
+                            <span ng-if="vm.comentarios.positivo[$index]" class="positiveOpinion tablesaw-cell-content ng-binding fa fa-2x fa-thumbs-up"></span>
+                            <span ng-if="!vm.comentarios.positivo[$index]" class="negativeOpinion tablesaw-cell-content ng-binding fa fa-2x fa-thumbs-down"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+

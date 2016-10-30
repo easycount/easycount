@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase">Productos</h1>
+        <i>Consulta todos los productos de EasyCount</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="tablesaw tablesaw-stack table" data-tablesaw-mode="stack"  id="dataTables-productos">
+                    <thead>
+                    <tr id="cabeceraTabla">
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" style="text-align:center;">Codigo de barras</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Tipo</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Descripcion</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Foto</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Controles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="contentTabla" ng-repeat="producto in productos">
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Nombre</b><span class="tablesaw-cell-content">{{producto.nombre}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Codigo de barras</b><span class="tablesaw-cell-content">{{producto.barcode}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Tipo</b><span class="tablesaw-cell-content">{{producto.type}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Descripcion</b><span class="tablesaw-cell-content">{{producto.description}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Foto</b><span class="tablesaw-cell-content"><img width="125" height="125" src="{{producto.photo}}" /></span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Controles</b><span class="tablesaw-cell-content"><input data-id="{{usuario.id}}" ng-click="editarProducto(this)" class="btn btn-easy" type="button" value="editar" /> <input ng-click="eliminarProducto(this)" class="btn btn-easy cancelar" type="button" value="eliminar" /></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.ro

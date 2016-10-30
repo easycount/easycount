@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Arbol de escena</title>
+<!--
+    Para que poner las luces dentro del arbol?
+ -->
+    <script type="text/javascript" src="toji-gl-matrix-21bd188/dist/gl-matrix.js"></script>
+    <script type="text/javascript" src="parseObjToJson.js"></script>
+    <script type="text/javascript" src="math.js"></script>
+    <script type="text/javascript" src="TNodo.js"></script>
+    <script type="text/javascript" src="TEntidad.js"></script>
+    <script type="text/javascript" src="TRecurso.js"></script>
+    <script type="text/javascript" src="TMotor.js"></script>
+
+    <script id="per-vertex-phong-fs" type="x-shader/x-fragment">
+	    #ifdef GL_ES
+            precision highp float;
+        #endif
+
+        const int NUM_LIGHTS = 2;
+        varying vec2 vTextureCoord;
+        varying vec3 vTransformedNormal;
+        varying vec4 vPosition;
+        varying vec3 vLightPos;
+
+        uniform bool uUseLighting;
+        uniform bool uUseTextures;
+        uniform bool sombrasActivas;
+
+        uniform vec3 uAmbientColor;
+
+
+        uniform vec3 uPointLightingLocation[NUM_LIGHTS];
+        uniform vec3 uPointLightingColor[NUM_LIGHTS];
+        uniform vec3 Kd; //COMPONENTE DIFUSA DEL MATERIAL
+        uniform vec3 Ka; //COMPONENTE AMBIENTAL DEL MATERIAL
+        uniform vec3 Ks; //COMPONENTE ESPECULAR DEL MATERIAL
+        uniform float Shininess; //FACTOR DE BRILLO DEL MATERIAL
+
+
+        uniform sampler2D uSampler;
+        uniform sampler2D samplerShadowMap;
+
+        // FUNCION QUE CALCULA EL MODELO DE PHONG
+        vec3 Phong ()
+        {
+
+            vec3 n = normalize (vTransformedNormal);
+            vec3 s = normalize (vec3(uPointLightingLocation[0]) - vPosition.xyz);
+            vec3 v = normalize (vec3 (-vPosition));
+            vec3 r = reflect (-s, n);
+            vec3 lightAux = uPointLightingColor[0] * (uAmbientColor + Kd * max (dot (s, n), 0.0) + Ks * pow (max (dot (r,v), 0.0), Shininess));
+
+            return lightAux;
+        }
+
+        void main(void) {
+            vec3 lightWeighting[NUM_LIGHTS];
+
+            if (!uUseLighting)
+            {
+                for(int i=0; i<NUM_LIGHTS; i++)
+                {
+                    lightWeighting[i] = Kd;
+                }
+            }
+            else
+            {
+
+                for(int i=0; i<NUM_LIGHTS; i++)
+                {
+
+                    //Phong
+                    vec3 n = normalize (vTransformedNormal);
+                    vec3 s = normalize (vec3(uPointLightingLocation[i]) - vPosition.xyz);
+                    vec3 v = normalize (vec3 (-vPosition));
+                    vec3 r = reflect (-s, n);
+                    vec3 lightAux = uPointLightingColor[i] * (uAmbientColor + Kd * max (dot (s, n), 0.0) + Ks * pow (max (dot (r,v), 0.0), Shininess));
+                    //Fin Phong
+                    lightWeighting[i] = lightAux;
+                }
+            }
+
+            vec4 finalColor = vec4(0.0,0.0,0.0,1.0);
+            vec3 finalColorAux;
+            vec4 fragmentColor;
+
+            if (uUseTextures) {
+                fragmentColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+            } else {
+                fragmentColor = vec4(1.0, 1.0, 1.0, 1.0);
+            }
+
+            for(int i=0; i<NUM_LIGHTS; i++)
+            {
+                finalColorAux += fragmentColor.rgb * lightWeighting[i];
+            }
+
+            //finalColor = vec4(fragmentColor.rgb * lightWeighting, fragmentColor.a);
+
+            //SOMBRAS
+            float shadowCoeff = 1.0;
+            if(sombrasActivas)
+            {
+                vec2 uv_shadowMap = vLightPos.xy;
+                vec4 shadowMapColor = texture2D(samplerShadowMap, uv_shadowMap);
+                float zShadowMap = shadowMapColor.r;
+
+                if (zShadowMap + 0.0022 < vLightPos.z && vLightPos.z <= 0.9 ){
+                    //THERE IS A SHADOW !!!
+                    gl_FragColor=vec4(0.0,1.0,0.0,1.0); //GREEN
+                    //return;
+                    //shadowCoeff=1.0- smoothstep(0.1, 0.0, vLightPos.z - zShadowMap);
+                    shadowCoeff = 0.75;
+                }
+
+            }
+            //FIN SOMBRAS
+
+            finalColor = vec4(shadowCoeff*finalColorAux,fragmentColor.a);
+            gl_FragColor = finalColor;
+        }
+    </script>
+
+    <script id="per-vertex-phong-vs" type="x-shader/x-vertex">
+	    attribute vec3 aVertexPosition;
+        attribute vec3 aVertexNormal;
+        attribute vec2 aTextureCoord;
+
+        uniform mat4 uMVMatrix;
+        uniform mat4 uPMatrix;
+        uniform mat3 uNMatrix;
+        uniform mat4 PmatrixLight, Lmatrix;
+
+        varying vec2 vTextureCoord;
+        varying vec3 vTransformedNormal;
+        varying vec4 vPosition;
+        varying vec3 vLightPos;
+
+
+        void main(void) {
+
+            vec4 lightPos = PmatrixLight * Lmatrix * vec4(aVertexPosition, 1.0);
+
+            vec3 lightPosDNC = lightPos.xyz / lightPos.w;
+            vLightPos = vec3(0.5,0.5,0.5) + lightPosDNC * 0.5;
+
+            vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+            gl_Position = uPMatrix * vPosition;
+            vTextureCoord = aTextureCoord;
+            vTransformedNormal = uNMatrix * aVertexNormal;
+        }
+    </script>
+
+
+    <script id="per-fragment-lighting-fs" type="x-shader/x-fragment">
+        #ifdef GL_ES
+        precision highp float;
+        #endif
+
+        varying vec2 vTextureCoord;
+        varying vec3 vTransformedNormal;
+        varying vec4 vPosition;
+
+        uniform bool uUseLighting;
+        uniform bool uUseTextures;
+
+        uniform vec3 uAmbientColor;
+
+        const int NUM_LIGHTS = 2;
+        uniform vec3 uPointLightingLocation[NUM_LIGHTS];
+        uniform vec3 uPointLightingColor[NUM_LIGHTS];
+
+        uniform sampler2D uSampler;
+
+
+        void main(void) {
+            vec3 lightWeighting[NUM_LIGHTS];
+            vec3 lightDirection[NUM_LIGHTS];
+            float directionalLightWeighting[NUM_LIGHTS];
+            if (!uUseLighting) {
+            for(int i=0; i<NUM_LIGHTS; i++)
+                {
+                    lightWeighting[i] = vec3(0.9, 0.9, 0.9);
+                }
+            } else {
+
+                for(int i=0; i<NUM_LIGHTS; i++)
+                {
+                    lightDirection[i] = normalize(uPointLightingLocation[i] - vPosition.xyz);
+
+                    directionalLightWeighting[i] = max(dot(normalize(vTransformedNormal), lightDirection[i]), 0.0);
+
+                    lightWeighting[i] = uAmbientColor + uPointLightingColor[i] * directionalLightWeighting[i];
+                }
+            }
+
+            vec4 finalColor = vec4(0.0,0.0,0.0,1.0);
+            vec3 finalColorAux;
+            vec4 fragmentColor;
+
+            if (uUseTextures) {
+                fragmentColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+            } else {
+                fragmentColor = vec4(1.0, 1.0, 1.0, 1.0);
+            }
+
+            for(int i=0; i<NUM_LIGHTS; i++)
+            {
+                finalColorAux += fragmentColor.rgb * lightWeighting[i];
+            }
+
+            //finalColor = vec4(fragmentColor.rgb * lightWeighting, fragmentColor.a);
+
+            finalColor = vec4(finalColorAux,fragmentColor.a);
+            gl_FragColor = finalColor;
+        }
+    </script>
+
+    <script id="per-fragment-lighting-vs" type="x-shader/x-vertex">
+          attribute vec3 aVertexPosition;
+          attribute vec3 aVertexNormal;
+          attribute vec2 aTextureCoord;
+
+          uniform mat4 uMVMatrix;
+          uniform mat4 uPMatrix;
+          uniform mat3 uNMatrix;
+
+          varying vec2 vTextureCoord;
+          varying vec3 vTransformedNormal;
+          varying vec4 vPosition;
+
+          void main(void) {
+            vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+            gl_Position = uPMatrix * vPosition;
+            vTextureCoord = aTextureCoord;
+            vTransformedNormal = uNMatrix * aVertexNormal;
+          }
+    </script>
+    <script id="shader_fragment_source_shadowMap" type="x-shader/x-fragment">
+          #ifdef GL_ES
+				precision highp float;
+			#endif
+          varying float vDepth;
+
+          void main(void) {
+            gl_FragColor=vec4(vDepth, 0.0,0.0,1.0);
+          }
+
+    </script>
+    <script id="shader_vertex_source_shadowMap" type="x-shader/x-vertex">
+          attribute vec3 position;
+          uniform mat4 Pmatrix, Lmatrix;
+          varying float vDepth;
+
+          void main(void) {
+            vec4 positions = Pmatrix * Lmatrix * vec4(position, 1.0);
+
+            float zBuf = positions.z/positions.w; //Z-buffer between -1 and 1
+            vDepth = zBuf * 0.5 + 0.5; //between 0 and 1
+
+            gl_Position = positions;
+          }
+    </script>
+
+    <script type="text/javascript">
+
+        console.log("--------- Empieza ---------");
+
+        var nodoEscena = null;
+        var rObjeto = 0;
+        var lastTime = 0;
+
+
+        var shaderProgram;
+        var motor ;
+
+
+        function start()
+        {
+            motor = new TMotor("miCanvas");
+            motor.miCanvas.onmousedown = handleMouseDown;
+            document.onmouseup = handleMouseUp;
+            document.onmousemove = handleMouseMove;
+
+            motor.usarSombras(true);
+
+            nodoEscena = motor.nodoRaiz();
+
+            //Crear objetos
+            piramide    = motor.crearObjeto();
+            aceite      = motor.crearObjeto();
+            arroz       = motor.crearObjeto();
+            berenjena1  = motor.crearObjeto();
+            caramelo    = motor.crearObjeto();
+            carne       = motor.crearObjeto();
+            leche       = motor.crearObjeto();
+            lechuga     = motor.crearObjeto();
+            mantequilla = motor.crearObjeto();
+            manzana1    = motor.crearObjeto();
+            manzana2    = motor.crearObjeto();
+            manzana3    = motor.crearObjeto();
+            pan         = motor.crearObjeto();
+            pescado1    = motor.crearObjeto();
+            pescado2    = motor.crearObjeto();
+            platano     = motor.crearObjeto();
+            pollo       = motor.crearObjeto();
+            queso       = motor.crearObjeto();
+            //salchichas  = motor.crearObjeto();
+            trigo       = motor.crearObjeto();
+            zanahoria   = motor.crearObjeto();
+            //cupcake     = motor.crearObjeto();
+            logo        = motor.crearObjeto();
+
+
+
+            grupo = motor.crearGrupo();
+
+            //Crear mallas
+            var recurso             = motor.crearMalla("resources/piramide.obj");
+            var recursoAceite       = motor.crearMalla("resources/aceite.obj");
+            var recursoArroz        = motor.crearMalla("resources/arroz.obj");
+            var recursoBerenjena1   = motor.crearMalla("resources/berenjena.obj");
+            var recursoCaramelo     = motor.crearMalla("resources/caramelo.obj");
+            var recursoCarne        = motor.crearMalla("resources/carne.obj");
+            var recursoLeche        = motor.crearMalla("resources/leche.obj");
+            var recursoLechuga      = motor.crearMalla("resources/lechuga.obj");
+            var recursoMantequilla  = motor.crearMalla("resources/mantequilla.obj");
+            var recursoManzana1     = motor.crearMalla("resources/manzana.obj");
+            var recursoManzana2     = motor.crearMalla("resources/manzana2.obj");
+            var recursoManzana3     = motor.crearMalla("resources/manzana3.obj");
+            var recursoPan          = motor.crearMalla("resources/pan.obj");
+            var recursoPescado1     = motor.crearMalla("resources/pescado1.obj");
+            var recursoPescado2     = motor.crearMalla("resources/pescado2.obj");
+            var recursoPlatano      = motor.crearMalla("resources/platano.obj");
+            var recursoPollo        = motor.crearMalla("resources/pollo.obj");
+            var recursoQueso        = motor.crearMalla("resources/queso.obj");
+            //var recursoSalchichas   = motor.crearMalla("resources/salchichas.obj");
+            var recursoTrigo        = motor.crearMalla("resources/trigo.obj");
+            var recursoZanahoria    = motor.crearMalla("resources/zanahoria.obj");
+            //var recursoCupcake      = motor.crearMalla("resources/cupcake.obj");
+            var recursoLogo         = motor.crearMalla("resources/logo.obj");
+
+
+            //Asignar mallas
+            motor.asignarRecurso(piramide, recurso);
+            motor.asignarRecurso(aceite, recursoAceite);
+            motor.asignarRecurso(arroz, recursoArroz);
+            motor.asignarRecurso(berenjena1, recursoBerenjena1);
+            motor.asignarRecurso(caramelo, recursoCaramelo);
+            motor.asignarRecurso(carne, recursoCarne);
+            motor.asignarRecurso(leche, recursoLeche);
+            motor.asignarRecurso(lechuga, recursoLechuga);
+            motor.asignarRecurso(mantequilla, recursoMantequilla);
+            motor.asignarRecurso(manzana1, recursoManzana1);
+            motor.asignarRecurso(manzana2, recursoManzana2);
+            motor.asignarRecurso(manzana3, recursoManzana3);
+            motor.asignarRecurso(pan, recursoPan);
+            motor.asignarRecurso(pescado1, recursoPescado1);
+            motor.asignarRecurso(pescado2, recursoPescado2);
+            motor.asignarRecurso(platano, recursoPlatano);
+            motor.asignarRecurso(pollo, recursoPollo);
+            motor.asignarRecurso(queso, recursoQueso);
+            //motor.asignarRecurso(salchichas, recursoSalchichas);
+            motor.asignarRecurso(trigo, recursoTrigo);
+            motor.asignarRecurso(zanahoria, recursoZanahoria);
+            //motor.asignarRecurso(cupcake, recursoCupcake);
+            motor.asignarRecurso(logo, recursoLogo);
+
+
+            //Crear texturas
+            var rTexturaAceite      = motor.crearTextura("resources/aceite.jpg");
+            var rTexturaArroz       = motor.crearTextura("resources/arroz.jpg");
+            var rTexturaBerenjena   = motor.crearTextura("resources/berenjena.jpg");
+            var rTexturaCaramelo    = motor.crearTextura("resources/caramelo.jpg");
+            var rTexturaCarne       = motor.crearTextura("resources/carne.jpg");
+            var rTexturaLeche       = motor.crearTextura("resources/leche.jpg");
+            var rTexturaLechuga     = motor.crearTextura("resources/lechuga.jpg");
+            var rTexturaMantequilla = motor.crearTextura("resources/mantequilla.jpg");
+            var rTexturaManzanaR    = motor.crearTextura("resources/manzanaR.jpg");
+            var rTexturaManzanaV    = motor.crearTextura("resources/manzanaV.jpg");
+            var rTexturaPan         = motor.crearTextura("resources/pan.jpg");
+            var rTexturaPescado1    = motor.crearTextura("resources/salmon.jpg");
+            var rTexturaPescado2    = motor.crearTextura("resources/atun.jpg");
+            var rTexturaPlatano     = motor.crearTextura("resources/platano.jpg");
+            var rTexturaPollo       = motor.crearTextura("resources/pollo.jpg");
+            var rTexturaQueso       = motor.crearTextura("resources/queso.jpg");
+            //var rTexturaSalchichas  = motor.crearTextura("resources/salchichas.jpg");
+            var rTexturaTrigo       = motor.crearTextura("resources/trigo.jpg");
+            var rTexturaZanahoria   = motor.crearTextura("resources/zanahoria.jpg");
+            //var rTexturaCupcake     = motor.crearTextura("resources/cupcake.jpg");
+            var rTexturaLogo        = motor.crearTextura("resources/logo.jpg");
+
+
+            //Asignar texturas
+            motor.asignarRecurso(aceite, rTexturaAceite);
+            motor.asignarRecurso(arroz, rTexturaArroz);
+            motor.asignarRecurso(berenjena1, rTexturaBerenjena);
+            motor.asignarRecurso(caramelo, rTexturaCaramelo);
+            motor.asignarRecurso(carne, rTexturaCarne);
+            motor.asignarRecurso(leche, rTexturaLeche);
+            motor.asignarRecurso(lechuga, rTexturaLechuga);
+            motor.asignarRecurso(mantequilla, rTexturaMantequilla);
+            motor.asignarRecurso(manzana1, rTexturaManzanaR);
+            motor.asignarRecurso(manzana2, rTexturaManzanaV);
+            motor.asignarRecurso(manzana3, rTexturaManzanaR);
+            motor.asignarRecurso(pan, rTexturaPan);
+            motor.asignarRecurso(pescado1, rTexturaPescado1);
+            motor.asignarRecurso(pescado2, rTexturaPescado2);
+            motor.asignarRecurso(platano, rTexturaPlatano);
+            motor.asignarRecurso(pollo, rTexturaPollo);
+            motor.asignarRecurso(queso, rTexturaQueso);
+            //motor.asignarRecurso(salchichas, rTexturaSalchichas);
+            motor.asignarRecurso(trigo, rTexturaTrigo);
+            motor.asignarRecurso(zanahoria, rTexturaZanahoria);
+            //motor.asignarRecurso(cupcake, rTexturaCupcake);
+            motor.asignarRecurso(logo, rTexturaLogo);
+
+
+            //Primero los Opacos
+            nodoEscena.addHijo(grupo);
+            grupo.addHijo(aceite);
+            grupo.addHijo(arroz);
+            grupo.addHijo(berenjena1);
+            grupo.addHijo(caramelo);
+            grupo.addHijo(carne);
+            grupo.addHijo(leche);
+            grupo.addHijo(lechuga);
+            grupo.addHijo(mantequilla);
+            grupo.addHijo(manzana1);
+            grupo.addHijo(manzana2);
+            grupo.addHijo(manzana3);
+            grupo.addHijo(pan);
+            grupo.addHijo(pescado1);
+            grupo.addHijo(pescado2);
+            grupo.addHijo(platano);
+            grupo.addHijo(pollo);
+            grupo.addHijo(queso);
+            //grupo.addHijo(salchichas);
+            grupo.addHijo(trigo);
+            grupo.addHijo(zanahoria);
+            //grupo.addHijo(cupcake);
+            grupo.addHijo(logo);
+
+            grupo.addHijo(piramide);
+
+
+            //Transformaciones
+            motor.trasladarNodo(grupo, [0.0, -0.5, -15.0]);
+
+
+            var camaraPerspectiva = motor.crearCamara(45, motor.miGl.viewportWidth / motor.miGl.viewportHeight, 0.1, 100.0);
+
+            motor.trasladarNodo(camaraPerspectiva, [0.0, 6.0, -4.0]);
+
+            motor.rotarNodo(camaraPerspectiva,50 , [2.0, 0.0, 0.0]);
+
+            nCamPers = motor.registrarCamara(camaraPerspectiva);
+
+            nodoEscena.addHijo(camaraPerspectiva);
+
+            motor.setCamaraActiva(nCamPers);
+
+            var luz1 = motor.crearLuz(0.5, 0.2, 0.2);
+            var nLuz1 = motor.registrarLuz(luz1);
+            motor.setLuzActiva(nLuz1);
+
+
+            var luz2 = motor.crearLuz(0.2, 0.2, 0.5);
+            var nLuz2 = motor.registrarLuz(luz2);
+            motor.setLuzActiva(nLuz2);
+
+            nodoEscena.addHijo(luz1);
+            nodoEscena.addHijo(luz2);
+
+            motor.rotarNodo(luz1, 50, [0.0, 6.0, 0.0]);
+            motor.rotarNodo(luz1, 50, [6.0, 0.0, 0.0]);
+            motor.trasladarNodo(luz1, [-5.0, 3.0, -5.0]);
+            motor.rotarNodo(luz2, 50, [6.0, -6.0, 0.0]);
+            motor.trasladarNodo(luz2, [1.0, 10.0, -5.0]);
+
+            lighting = true;
+            motor.miGl.uniform1i(motor.currentProgram.useLightingUniform, lighting);
+
+            material1 = motor.crearMaterial("hierro");
+            material1.setDifuso([0.4,0.4,0.4]);
+            material1.setAmbiental([0.0,0.0,0.0]);
+            material1.setEspecular([0.6,0.7,0.6]);
+            material1.setBrillo(5);
+            material1.setAlfa(0.75);
+
+            material2 = motor.crearMaterial("mate");
+            material2.setDifuso([0.6,0.6,0.6]);
+            material2.setAmbiental([0.0,0.0,0.0]);
+            material2.setEspecular([0.0,0.0,0.0]);
+            material2.setBrillo(5);
+            material2.setAlfa(1);
+
+            material3 = motor.crearMaterial("mate");
+            material3.setDifuso([0.6,0.6,0.6]);
+            material3.setAmbiental([0.0,0.0,0.0]);
+            material3.setEspecular([3.0,7.0,3.0]);
+            material3.setBrillo(5);
+            material3.setAlfa(1);
+
+            motor.asignarRecurso(piramide, material1);
+            motor.asignarRecurso(aceite, material2);
+            motor.asignarRecurso(arroz, material2);
+            motor.asignarRecurso(berenjena1, material2);
+            motor.asignarRecurso(caramelo, material2);
+            motor.asignarRecurso(carne, material2);
+            motor.asignarRecurso(leche, material2);
+            motor.asignarRecurso(lechuga, material2);
+            motor.asignarRecurso(mantequilla, material2);
+            motor.asignarRecurso(manzana1, material2);
+            motor.asignarRecurso(manzana2, material2);
+            motor.asignarRecurso(manzana3, material2);
+            motor.asignarRecurso(pan, material2);
+            motor.asignarRecurso(pescado1, material2);
+            motor.asignarRecurso(pescado2, material2);
+            motor.asignarRecurso(platano, material2);
+            motor.asignarRecurso(pollo, material2);
+            motor.asignarRecurso(queso, material2);
+            //motor.asignarRecurso(salchichas, material2);
+            motor.asignarRecurso(trigo, material2);
+            motor.asignarRecurso(zanahoria, material2);
+            //motor.asignarRecurso(cupcake, material2);
+            motor.asignarRecurso(logo, material3);
+
+            motor.draw();
+            animacion();
+        }
+
+
+        var mouseDown = false;
+        var lastMouseX = null;
+
+        function handleMouseDown(event) {
+            mouseDown = true;
+            lastMouseX = event.clientX;
+        }
+
+        function handleMouseUp(event) {
+            mouseDown = false;
+        }
+
+        function handleMouseMove(event) {
+            if (!mouseDown) {
+                return;
+            }
+            var newX = event.clientX;
+
+            var deltaX = newX - lastMouseX;
+
+            motor.rotarNodo(grupo, (deltaX / 3 ) * (Math.PI / 180), [0, 1, 0]);
+
+            lastMouseX = newX
+        }
+
+
+        var r1Ascendente = false;
+        var cont = 40;
+        var r2Ascendente = false;
+        var cont2 = 30;
+
+        var animacion = function()
+        {
+            requestAnimationFrame(animacion);
+            cont++;
+            cont2++;
+
+            if(cont > 80)
+            {
+                cont = 0;
+                r1Ascendente = !r1Ascendente;
+            }
+            if(cont2 > 60)
+            {
+                cont2 = 0;
+                r2Ascendente = !r2Ascendente;
+            }
+
+            if(r1Ascendente)
+            {
+                motor.rotarNodo(grupo, (0.05) * (Math.PI / 180), [1, 0, 0]);
+            }
+            else
+            {
+                motor.rotarNodo(grupo, (-0.05) * (Math.PI / 180), [1, 0, 0]);
+            }
+
+            if(r2Ascendente)
+            {
+                motor.rotarNodo(grupo, (0.03) * (Math.PI / 180), [0, 0, 1]);
+            }
+            else
+            {
+                motor.rotarNodo(grupo, (-0.03) * (Math.PI / 180), [0, 0, 1]);
+            }
+        }
+
+
+        console.log("--------- Termina ---------");
+
+    </script>
+</head>
+<body onload="start()">
+<canvas id="miCanvas" width="640" height="480">
+    Tu navegador no soporta HTML5 <code>&lt;canvas&gt;</code>
+</canvas>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-lg-12 text-center page-header">
+        <h1 class="uppercase"><strong>Historial </strong></h1>
+        <i>Aquí encontrarás todas tus compras ordenadas de la más a la menos reciente.</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div id="loaderTickets" class="bubbles">
+    <span></span>
+    <span id="bubble2"></span>
+    <span id="bubble3"></span>
+</div>
+<div class="row" ng-if="vm.cargado == true">
+    <div class="col-lg-12">
+        <table class="tablesaw tablesaw-stack table"  id="dataTables-tickets">
+            <thead>
+            <tr id="cabeceraTabla">
+                <th>Fecha</th>
+                <th>Empresa</th>
+                <th>Importe</th>
+                <th>Controles</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="contentTabla" ng-repeat="ticket in vm.tickets">
+                <td style="text-align:center;"><b class="tablesaw-cell-label">FECHA</b><span class="tablesaw-cell-content">{{vm.formatearFechaPretty(ticket.fecha)}}</span></td>
+                <td style="text-align:center;"><b class="tablesaw-cell-label">EMPRESA</b><span class="tablesaw-cell-content"><img src="{{ticket.fotoEmpresa}}" width="100" alt="{{tickets.nombreEmpresa}}" /></span></td>
+                <td style="text-align:center;"><b class="tablesaw-cell-label">IMPORTE</b><span class="tablesaw-cell-content">{{ticket.importe}}€</span></td>
+                <td style="text-align:center;">
+                    <a ui-sref="dashboard.viewTicket({ ticketId: ticket._id })" class="btn btn-easy">Ver productos</a>
+                    <a ng-click="vm.eliminarTicket(ticket._id)" class="btn btn-easy cancelar">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="vm.numPags>1" id="navegacionPags">
+            <span ng-click="vm.cambiarPaginacion(vm.paginacionActual-1)"> << </span>
+            <span ng-if="i==1 || i==vm.navegacion.length-1 || (i>vm.paginacionActual-2&&i<vm.paginacionActual+2)" ng-class="i==vm.paginacionActual ? 'navegacionMarcado':''" ng-click="vm.cambiarPaginacion(i)" ng-repeat="i in vm.navegacion"> <span class="puntosDer" ng-if="i==vm.navegacion.length-1 && vm.paginacionActual<vm.numPags-3">...</span>{{i}}<span class="puntosIzd" ng-if="i==1 && vm.paginacionActual>3">...</span> </span>
+        <span ng-click="vm.cambiarPaginacion(vm.paginacionActual+1)"> >> </span>
+    </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.ro

@@ -1,0 +1,94 @@
+<script>
+    function botonAlert(e)
+    {
+        var descr = "<ul><li>Descripcion: Producto desengrasante de lavadoras</li><li>Precio: 3.15</li><li>Componentes: Agua, lejia, colorantes</li></ul>";
+
+        swal(
+                {
+                    html:true,
+                    title: "Producto: Calgonit",
+                    text: descr ,
+                    showCancelButton: false
+                }, function()
+                {
+
+                }
+        );
+    }
+</script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Productos</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Listado de productos de Mercadona
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" style="text-align:center;" id="dataTables-comercios">
+                        <thead>
+                        <tr>
+                            <th style="text-align:center;">Nombre</th>
+                            <th style="text-align:center;">Precio</th>
+                            <th style="text-align:center;">Codigo de barras</th>
+                            <th style="text-align:center;">Controles</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="odd gradeX">
+                            <td>CALGONIT</td>
+                            <td>3.15€</td>
+                            <td>9DG9SDFG9F</td>
+                            <td>
+                                <button type="button" class="btn btn-info" onClick="botonAlert('Event')">Mas info</button>
+                            </td>
+                        </tr>
+                        <tr class="even gradeX">
+                            <td>Colacao</td>
+                            <td>2.50€</td>
+                            <td>DF16SF15DS98F4</td>
+                            <td><button type="button" class="btn btn-info">Mas info</button></td>
+                        </tr>
+                        <tr class="odd gradeX">
+                            <td>Videojuego NDS</td>
+                            <td>49.99€</td>
+                            <td>9D52FV6SD54F</td>
+                            <td><button type="button" class="btn btn-info">Mas info</button></td>
+                        </tr>
+                        <tr class="even gradeX">
+                            <td>Aquarius</td>
+                            <td>1.00€</td>
+                            <td>9S8D4FS5SADF</td>
+                            <td><button type="button" class="btn btn-info">Mas info</button></td>
+                        </tr>
+                        <tr class="odd gradeX">
+                            <td>Coca-Cola</td>
+                            <td>0.80€</td>
+                            <td>SAF41AS1FDA9S8</td>
+                            <td><button type="button" class="btn btn-info">Mas info</button></td>
+                        </tr>
+                        <tr class="even gradeX">
+                            <td>Pizza Tarradellas</td>
+                            <td>3.25€</td>
+                            <td>SD98F41SD984G</td>
+                            <td><button type="button" class="btn btn-info">Mas info</button></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="corporativeApp" ng-controller="corporativeAppCtrl as vm">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>EasyCount - Log In</title>
+    <link rel="shortcut icon" href="../images/easycountlogo.png">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="styles/bootstrap.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href = "./styles/estilo.css">
+    <link rel="stylesheet" href = "./styles/creative.css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="styles/animate.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.min.css" type="text/css">
+
+
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
+    <script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+
+</head>
+<body>
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top"><img style="display:inline;margin-right: 8px;" src="../images/easycountlogo.png" width="25px"/><span style="display:inline;text-transform:none!important">Easy<div style="display:inline;opacity:1;font-weight:bold;">Count</div></span></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="/">INICIO</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/contacto">CONTACTO</a>
+                    </li>
+                    <li>
+                        <% if(user==null){%>
+                        <a class="page-scroll" href="/login">INICIAR SESION</a>
+                        <% }else{ %>
+                        <a class="page-scroll" href="#" ng-click="vm.irAPanel()">ACCEDER A MI PANEL</a>
+                        <% }%>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">DESCARGAS</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+<!-- CABECERA -->
+
+    <header id="loginHeader" class="backKeys">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>Adéntrate en la revolución</h1>
+                <hr>
+                <!-- Mensajes de error -->
+
+                <p><i>Descubre una nueva manera de comprar</i></p>
+                <form class="formClass" action="/loginLocal" method="POST" autocomplete="on">
+                    <h1 class="formTitle">Log in</h1>
+
+                    <% if (message){ if(message.length > 0) { %>
+                    <div class="alert alert-danger"><%= message %></div>
+                    <% }} %>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-user"></i> </div>
+                            <input class="form-control" autofocus ng-model="vm.useremail" id="username" name="username" required="required" type="email" placeholder="mymail@mail.com"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-unlock-alt"></i> </div>
+                            <input class="form-control" ng-model="vm.userpass" id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO " />
+                        </div>
+                    </div>
+
+                    <div>
+                        <input class="btn btn-primary btn-xl" type="submit" value="Login" />
+                        <a href="/registro" class="">Regístrate</a>
+                    </div>
+
+                    <div>
+                        <a href="/auth/twitter" ><i class="fa fa-3x fa-twitter-square"></i></a>
+                        <a href="/auth/google" ><i class="fa  fa-3x fa-google-plus-square"></i></a>
+                    </div>
+                    <div>
+                        Al unirte a EasyCount <strong>aceptas nuestras condiciones de servicio y nuestra política de privacidad.</strong>
+                    </div>
+
+
+                    <br><br>
+                </form>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+</body>
+</html>

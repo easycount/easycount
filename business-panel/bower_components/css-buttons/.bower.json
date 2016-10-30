@@ -1,0 +1,13 @@
+{
+  "name": "css-buttons",
+  "homepage": "https://github.com/upstage/components",
+  "_release": "7d349085b6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "7d349085b6d31e5609e72090510bf193634c81eb"
+  },
+  "_source": "git://github.com/upstage/components.git",
+  "_target": "*",
+  "_originalSource": "components"
+}

@@ -1,0 +1,321 @@
+
+
+/* Space out content a bit */
+body {
+    padding-bottom: 0.1px;
+}
+select{
+    padding: 3px;
+}
+
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+    border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+}
+
+
+.inputPerfil{
+    width:300px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+.inputPerfilButton{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #47D444 !important;
+}
+
+.positiveRadio{
+    margin-right: 20px;
+    background-color: rgba(0, 190, 0, 0.3);
+}
+
+.puntosIzd, .puntosDer{
+    margin-top: 0px!important;
+    margin-bottom: 0px!important;
+    padding: 0px!important;
+}
+
+.puntosIzd{
+    margin-left: 5px;
+    margin-right: 0px!important;
+}
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px;
+    }
+}
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+.positiveOpinion, .positiveRadio, .positive{
+    color: #00be00;
+
+}
+
+.negativeOpinion, .negativeRadio, .negative{
+    color: #ff493a;
+}
+
+.positiveRadio, .negativeRadio{
+    border: 1px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 120px;
+    padding: 10px;
+    opacity: 0.4;
+}
+
+.positiveRadio:hover, .negativeRadio:hover{
+    opacity: 0.8 !important;
+}
+
+.opinionSel{
+    opacity: 1 !important;
+}
+
+.negativeRadio{
+    background-color: rgba(255, 73, 58, 0.3);
+}
+
+.positiveRadio{
+    margin-right: 20px;
+    background-color: rgba(0, 190, 0, 0.3);
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 40px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+
+}
+.ec-stars-wrapper {
+    /* Espacio entre los inline-block (los hijos, los `a`)
+       http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
+    font-size: 20px;
+    /* Podr�amos quitarlo,
+        pero de esta manera (siempre que no le demos padding),
+        s�lo aplicar� la regla .ec-stars-wrapper:hover a cuando
+        tambi�n se est� haciendo hover a alguna estrella */
+    display: inline-block;
+}
+.ec-stars-wrapper a {
+    text-decoration: none;
+    display: inline-block;
+    /* Volver a dar tama�o al texto */
+    font-size: 128px;
+    font-size: 8rem;
+
+    color: #BCF5A9;
+}
+
+.ec-stars-wrapper:hover a {
+    color: #04B404;
+}
+/*
+ * El selector de hijo, es necesario para aumentar la especifidad
+ */
+.ec-stars-wrapper > a:hover ~ a {
+    color: #BCF5A9;
+}
+
+/*MODIFICACION DE ESTILOS POR DEFECTO BOOTSTRAP*/
+.navbar-default {
+    background-color: #1F1F1F ;
+    border: none;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #1F1F1F ;
+    color: #ddd;
+}
+
+.nav>li.active>a {
+    text-decoration: none;
+    background-color: #1F1F1F ;
+    color: #fff;
+}
+
+a:focus, a:hover {
+    color: #C7C7C7 ;
+    text-decoration: underline;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+.nav>li>a{
+    font-size: medium;
+}
+.sidebar-nav a{
+    color:grey;
+}
+
+.sidebar-nav .active{
+    color: #fff;
+}
+
+.navbar-brand img{
+    margin-top: -5px;
+}
+
+
+
+.navegacionMarcado{
+    /* color: #0a18ff;*/
+    color: black !important;
+    cursor: default !important;
+}
+
+.navbar-brand span{
+    position: relative;
+    top: -25px;
+    left: 40px;
+    color: #F3F2F2;
+}
+
+.panel-green a:hover {
+    color: #3d8b3d;
+}
+.panel-green a {
+    color: #3d8b3d;
+}
+
+.panel-primary a:hover{
+    color: #337ab7;
+}
+.panel-primary a{
+    color: #29d;
+}
+
+#page-wrapper {
+    background-color: #EAEAEA !important;
+}
+
+.recuadroDashboard{
+    cursor: pointer;
+}
+.row .panel {
+    -webkit-box-shadow: 0px 10px 58px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 58px -12px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 58px -12px rgba(0,0,0,0.75);
+}
+
+.recuadroDashboard .fa{
+    color:#3d8b3d;
+}
+.uppercase{
+    text-transform: uppercase;
+}
+
+.wrap{
+    word-wrap: break-word;
+}
+
+.tabla .list-group-item, .tabla .panel-heading{
+    background: white;
+    border: none;
+}
+.tabla .small {
+    color: #3d8b3d;
+}
+.row .page-header{
+    margin-top: 10px;
+}
+.tabla .list-group{
+    margin-bottom: 0;
+}
+#seccionUsuario{
+    margin-bottom: 1em;
+}
+
+#seccionUsuario p{
+    margin-top:1em;
+    margin-right: 0.2em;
+    font-size: medium;
+    color: #fff;
+}
+
+
+#seccionUsuario img{
+    width: 80%;
+}
+
+#usuarioEnlaces{
+    margin-left: 1em;
+    font-size: small;
+}
+#usuarioEnlaces a {
+    display: block;
+    color:grey;
+    font-weight: bold;
+}
+
+.panel-heading section{
+    margin-top: 0.5em;
+}
+
+@media (min-width: 1200px){
+    .col-lg-2 {
+        width: 15%!important;
+    }
+}

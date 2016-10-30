@@ -1,0 +1,174 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>Nueva promoción</strong></h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Nueva Promocion</strong>
+    </div>
+
+    <div class="panel-body">
+        <form class="form-horizontal">
+            <fieldset>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="nombre">Nombre</label>
+                    <div class="col-md-4">
+                        <input id="nombre" ng-model="vm.nombre" type="text" placeholder="Nombre" class="form-control input-md">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="codigo">Codigo de barras</label>
+                    <div class="col-md-4">
+                        <input id="codigo" ng-model="vm.codigo" type="text" placeholder="Codigo" class="form-control input-md">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="tipoPromocion">Tipo de promocion</label>
+                    <div class="col-md-4">
+                        <input id="tipoPromocion" ng-model="vm.tipoPromocion" type="text" placeholder="Tipo de promocion" class="form-control input-md">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="descripcion">Descripcion</label>
+                    <div class="col-md-4">
+                        <textarea style="resize:none;" id="descripcion" ng-model="vm.descripcion" type="text" placeholder="Descripcion" class="form-control input-md"></textarea>
+                    </div>
+                </div>
+
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="tipo">Descuento</label>
+                    <div class="col-md-4">
+                        <select class="form-control" id="tipo">
+                            <option ng-repeat="tipo in tipos"  value="{{tipo.nombre}}">
+                                {{tipo.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="productosAfectados">Productos afectados</label>
+                    <div class="col-md-4">
+                        <select class="form-control" ng-change="hacambiado()" ng-model="selectvalue" id="productosAfectados">
+                            <option ng-repeat="producto in productos"  value="{{producto.nombre}}">
+                                {{producto.nombre}}
+                            </option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="mySel">Tipos de productos</label>
+                    <div class="col-md-4">
+                        <select id="mySel" class="form-control" multiple="multiple">
+                            <option ng-repeat="item in productosTipos" value="{{item.id}}" ng-selected="item.selected" ng-model="item.tag">{{item.nombre}}</option>
+                        </select>
+
+                        <!--<select id="productosTipos">
+                            <option ng-repeat="productosTipo in productosTipos"  value="">
+                                {{productosTipo.nombre}}
+                            </option>
+                        </select>-->
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="mySel2">Categorias de usuarios</label>
+                    <div class="col-md-4">
+                        <select id="mySel2" class="form-control" multiple="multiple">
+                            <optgroup label="Categorias Estántar">
+                                <option value="Soltero">Soltero</option>
+                                <option value="Pareja">Pareja</option>
+                                <option value="fBebes">Familia con niños</option>
+                                <option value="fAdolescente">Familia con adolescentes</option>
+                                <option value="Vegano/Vegetariano">Vegano</option>
+                                <option value="Gordo">Obeso</option>
+                                <option value="Mascota">Mascota</option>
+                                <option value="Deportista">Deportista</option>
+                                <option value="Nuevo">Nuevo</option>
+                            </optgroup>
+                            <optgroup label="Por edad">
+                                <option value="Adolescente">Adolescente</option>
+                                <option value="Joven">Joven</option>
+                                <option value="Mediana_edad">Mediana edad</option>
+                                <option value="Jubilado">Jubilado</option>
+                            </optgroup>
+                            <optgroup label="Por restricciones">
+                                <option value="Celiaco">Celiaco</option>
+                                <option value="Diabetico">Diabetico</option>
+                                <option value="Global">Global</option>
+                            </optgroup>
+                        </select>
+
+                        <!--<select id="productosTipos">
+                            <option ng-repeat="productosTipo in productosTipos"  value="">
+                                {{productosTipo.nombre}}
+                            </option>
+                        </select>-->
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fecha Inicio</label>
+                    <div class="col-md-4">
+                        <input type="date" placeholder="dd/mm/aaaa" id="fechaInicio" class="form-control input-md"/>
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fecha expiracion</label>
+                    <div class="col-md-4">
+                        <input type="date" placeholder="dd/mm/aaaa" id="fechaFinal" class="form-control input-md"/>
+                    </div>
+
+
+                </div>
+
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="crear"></label>
+                    <div class="col-md-1">
+                        <button id="crear" name="crear" class="btn btn-easy" ng-click="crearPromocion()">Crear promocion</button>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <br><br><br><br>
+
+            <div class="form-group" id="codeDiv">
+                <div class="col-md-12">
+                    <input id="codigo2" value="{{vm.codigoBarras}}" style="font-family: 'Free39'; font-size: 90px; height: 150px; width:100%; margin:auto; text-align:center" readonly ng-model="vm.codigo" type="text" class="form-control input-md">
+                </div>
+                <div class="col-md-12">
+                    <input value="Codigo de la promocion: {{vm.codigoBarras}}" style="width:100%; margin:auto; text-align:center" readonly ng-model="vm.codigo" type="text" class="form-control input-md">
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="codigoBarras"></label>
+                <div class="col-md-1">
+                    <button id="codigoBarras" name="codigoBarras" class="btn btn-easy" ng-click="imprimirCodigo()">Imprimir Codigo</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

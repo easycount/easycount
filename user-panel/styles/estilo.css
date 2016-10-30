@@ -1,0 +1,332 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:400,700);
+body{
+    font-family:"Open Sans", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+}
+#buscador{
+    margin-bottom: 3em;
+    border-bottom: 1px solid #00A731;
+}
+#cabeceraTabla{
+    font-size: medium;
+}
+#cabeceraTabla > th{
+    font-weight: bold;
+}
+#contentTabla{
+    font-size: small;
+}
+#contentTabla > td, .contentTabla > td{
+    vertical-align: middle !important;
+}
+.btn-easy{
+    background-color: #00A731;
+    color:white;
+    border-radius: 0;
+
+}
+.btn-easy:hover {
+    background-color: #5CB85C;
+    color:white;
+}
+
+.btn-easy-invert, .headerListasSel, .headerListas:active,.headerListas:focus{
+    background-color: transparent;
+    color:#00A731;
+    border: solid 1px #00A731;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    border-radius:0;
+}
+.panel-body table #contentTabla .btn-easy ,.panel-heading .btn-easy{
+    margin-top:0.5em;
+}
+.red{
+    border-radius: 40px;    !important;
+}
+.input-number-easy{
+    width: 4.5em;
+    display: inline;
+    border-radius: 0;
+}
+
+#headerInput{
+    margin-top: 1em;
+}
+
+#gastoTiempo section p {
+    display: inline-block;
+}
+#gastoTiempo section p:first-child{
+    margin-right: 1em;
+}
+.easy{
+    color: #00A731;
+}
+table tbody #contentTabla{
+    color: #585757;
+}
+.cancelar{
+    background-color: #D50000;
+    color: white;
+    border-radius: 0;
+}
+.cancelar:hover{
+    color: white;
+    background-color: rgba(212, 0, 0, 0.88);
+}
+.page-header,.main{
+    color:dimgrey;
+}
+.page-header h1{
+    color:#00A731;
+}
+
+.checkEmpresas input[type="checkbox"], .checkEmpresas label{
+    display: inline;
+}
+
+.ng-scope #wrapper{
+    background-color: #1F1F1F;
+}
+
+#descripcionProducto{
+    height: 300px;
+}
+
+#imagenProducto{
+    width: auto; /* you can use % */
+    height: 300px;
+    min-width: 250px;
+    max-width: 490px;
+    margin-left:auto;
+    margin-right:auto;
+    display:table;
+}
+
+#contenedorImagenProducto{
+    max-width: 520px;
+}
+
+.punteroEnlace{
+    cursor: pointer;
+}
+
+a{
+    cursor: pointer;
+}
+
+
+.estrellas span {
+    text-decoration: none;
+    display: inline-block;
+    font-size: 4rem;
+    cursor:default;
+
+    color: #BCF5A9;
+}
+
+.estrellaSeleccionada{
+    color: #04B404 !important;
+}
+
+
+.mensajeError{
+    color: #F00;
+}
+
+.navigation a , .navigation span{
+    color:#00A731;
+}
+
+#selectCantidad {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    -webkit-appearance: none;
+    padding: 0.5em;
+    border-radius: 0.5px ;
+}
+
+#menos , #mas {
+    padding: 0.5em 0.5em;
+    background-color: #04B404;
+}
+
+#navegacionPags{
+    text-align: right;
+}
+
+#navegacionPags *{
+    font-weight: bold;
+    color: #00A731;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+#navegacionPags *:hover{
+    color: #1F8602;
+}
+
+.checkEmpresa{
+    display: inline-block;
+    margin-left: 2em;
+}
+
+.list-group-item{
+    border:none;
+}
+.promociones{
+    margin-top:2em;
+}
+
+#headerPromociones{
+    /*background-color: #F5F5F5;*/
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+.ticketPromo{
+    margin-right: 3em;
+}
+
+#homePromos {
+    margin-top: 3em;
+    margin-right: 2em;
+    margin-left: 2em;
+}
+
+#homePromos .owl-item div {
+    padding: 0.5em;
+    color: #00A731;
+    background-color: #fff;
+    text-align: center;
+    margin-right: 1em;
+    height: 200px;
+}
+
+#homePromos .item {
+    border: solid 1px;
+    border-radius: 5px;
+}
+
+.btn-promos{
+    background-clip: padding-box;
+    border: 2px solid #fff;
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    height: 36px;
+    letter-spacing: 0.5px;
+    line-height: 36px;
+    margin-bottom: 15px;
+    padding: 0 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.2s ease-out;
+}
+
+.btn-promos:hover {
+    background-color: #fff;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #00A731;
+    -moz-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.page-header{
+    font-family: 'Exo', sans-serif;
+
+}
+.page-header img {
+    width: 25%;
+    margin-bottom:1em;
+    margin-top: 2em;
+}
+
+#head {
+    margin-top:0;
+    padding-top:1px;
+}
+
+#filaPromo {
+    padding-top: 3em;
+    font-weight: bold;
+    color: #00A731;
+    font-size: large;
+}
+
+.buscador section input[type='text'], .buscador section select{
+    width: 100%;
+    height: 130%;
+    border: 2px solid #00A731;
+    color: #00A731;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 8px;
+}
+
+.buscador input[type='checkbox']{
+    width: 20px!important;
+    height: 20px!important;
+    margin-left: 10px;
+}
+
+.none {
+    display: none;
+}
+
+.inline{
+    display: inline-block;
+}
+#descripcionDetalle {
+    border: 1px solid;
+    padding: 1em;
+    margin-bottom: 2em;
+}
+#descripcionDetalle h4 {
+    font-weight: bold;
+}
+#descripcionDetalle section table{
+    border: 1px solid;
+    border-radius: 15px;
+}
+#descripcionDetalle section table tr td{
+    padding: 1em;
+}
+#descripcionDetalle section table tr:nth-child(even){
+    background-color: rgba(125, 216, 125, 0.44);
+}
+#fotoSidebar {
+    margin-left: 12px;
+}
+
+#nuevaLista {
+    background-color: #00A731;
+}
+
+#nuevaLista>a{
+    color: #fff;
+}
+#noExisten{
+    color: #000;
+    font-weight: bold;
+    font-size: 2em;
+}
+#navegacionPags{
+    margin-top: 1em;
+}
+.navigation{
+    margin-bottom: 0.45em;
+}
+@media (max-width: 1200px){
+    .buscador section {
+        margin-top: 0.5em;
+    }
+}
+@media (max-width: 768px){
+    .page-header img {
+        width: 60%;
+    }
+}

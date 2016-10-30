@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>Estadísticas por Tipo de Producto</strong></h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row panel panel-default">
+    <div class="col-lg-12 col-sm-12 panel-heading contPestanyas">
+        <button id="valTipo" class="btn btn-easy headerListas headerListasSel" ng-click="vm.cargarEstadisticas(0)">Valoración de tipos de productos</button>
+        <button id="val" class="btn btn-easy headerListas" ng-click="vm.cargarEstadisticas(1)">Ventas de tipos de productos</button>
+    </div>
+
+    <!--************************************** PESTAÑA 1: VALORACIÓN DE TIPOS DE PRODUCTOS ***********************************-->
+    <div ng-if="vm.estadisticas==0">
+        <div class="col-lg-6 col-sm-12" ng-if="vm.tiposDeProducto.length<=0">No hay productos de esta categoría en tu catálogo</div>
+        <div class="col-lg-6 col-sm-12" ng-if="vm.tiposDeProducto.length>0">
+            <div class="panel-body col-lg-12 col-sm-12">
+                <div class="dataTable_wrapper">
+                    <table class="tablesaw tablesaw-stack table" id="dataTables-val">
+                        <thead>
+                        <tr id="cabeceraTabla" class="cabeceraTabla">
+                            <th>Posición</th>
+                            <th>Tipo</th>
+                            <th>Valoración en mi empresa</th>
+                            <th>Valoración general</th>
+                            <th>Comparativa</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="contentTabla1" class="contentTabla" ng-repeat="prod in vm.tiposDeProducto | orderBy:'valMedTipo':true">
+                            <td><b class="tablesaw-cell-label">POSICIÓN</b><span class="tablesaw-cell-content">{{$index+1}}</span></td>
+                            <td><b class="tablesaw-cell-label">TIPO</b><span class="tablesaw-cell-content">{{prod.tipo}}</span></td>
+                            <td><b class="tablesaw-cell-label">VALORACIÓN EN MI EMPRESA</b>
+                                <span ng-if="prod.valMedTipo>0" class="tablesaw-cell-content">{{prod.valMedTipo|number:2}}</span>
+                                <span ng-if="prod.valMedTipo<=0" class="tablesaw-cell-content">Aún no ha sido valorado</span>
+                            </td>
+                            <td><b class="tablesaw-cell-label">VALORACIÓN GENERAL</b>
+                                <span ng-if="prod.valMedTipoTotal>0" class="tablesaw-cell-content">{{prod.valMedTipoTotal|number:2}}</span>
+                                <span ng-if="prod.valMedTipoTotal<=0" class="tablesaw-cell-content">Aún no ha sido valorado</span>
+                            </td>
+                            <td><b class="tablesaw-cell-label">COMPARATIVA</b>
+                                <div ng-if="prod.valMedTipo>0">
+                                    <span ng-if="prod.valMedTipo>prod.valMedTipoTotal" class="positive tablesaw-cell-content fa fa-arrow-up"></span>
+                                    <span ng-if="prod.valMedTipo==prod.valMedTipoTotal" class="equal tablesaw-cell-content fa fa-minus"></span>
+                                    <span ng-if="prod.valMedTipo<prod.valMedTipoTotal" class="negative tablesaw-cell-content fa fa-arrow-down"></span>
+                                </div>
+                                <span ng-if="prod.valMedTipo<=0" class="tablesaw-cell-content">Aún no ha sido valorado</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 valoracionMediaProd" id="radar-chart">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Valoracion media por tipo</strong></div>
+                <div class="panel-body">
+                    <canvas id="radar1" class="chart chart-radar" data="radar1.data" labels="radar1.labels" legend="true"
+                            options="radar1.options" colours="radar1.colours" series="radar1.series"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--************************************** PESTAÑA 2: VENTAS DE TIPOS DE PRODUCTOS ***********************************-->
+    <div ng-if="vm.estadisticas==1">
+        <div class="col-lg-6 col-sm-12" ng-if="vm.tiposDeProducto.length<=0">No hay productos de esta categoría en tu catálogo</div>
+        <div class="col-lg-6 col-sm-12" ng-if="vm.tiposDeProducto.length>0">
+            <div class="panel-body col-lg-12 col-sm-12">
+                <div class="dataTable_wrapper">
+                    <table class="tablesaw tablesaw-stack table" id="dataTables-val2">
+                        <thead>
+                        <tr id="cabeceraTabla2" class="cabeceraTabla">
+                            <th>Posición</th>
+                            <th>Tipo</th>
+                            <th>Productos vendidos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="contentTabla" class="contentTabla" ng-repeat="prod in vm.tiposDeProducto | orderBy:'numProductosComprados':true">
+                            <td><b class="tablesaw-cell-label">POSICIÓN</b><span class="tablesaw-cell-content">{{$index+1}}</span></td>
+                            <td><b class="tablesaw-cell-label">TIPO</b><span class="tablesaw-cell-content">{{prod.tipo}}</span></td>
+                            <td><b class="tablesaw-cell-label">Productos vendidos</b>
+                                <span class="tablesaw-cell-content">{{prod.numProductosComprados|number:2}}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 valoracionMediaProd" id="radar-chart2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Productos vendidos por tipo</strong></div>
+                <div class="panel-body">
+                    <canvas id="bar2" class="chart chart-bar chart-xl" data="bar2.data" labels="bar2.labels" legend="true"
+                            options="bar2.options" colours="bar2.colours" series="bar2.series"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

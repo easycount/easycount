@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default" >
+    <div class="container-fluid" height="90px">
+        <div class="navbar-header">
+            <button ng-click="vm.pushDown()" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img alt="logo EasyCount" src="./images/easycountlogo.png" height="70px">
+            </a>
+            <span class="titulo navbar-brand">EasyCount</span>
+        </div> <!-- navbar-header -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right vertical-center">
+                <!--<li><a href="quienessomos.html">Quienes somos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html">Iniciar sesión</a></li>-->
+                <li><button type="button" class="btn btn-primary" ng-click="vm.quienesPage()">Quienes somos</button></li>
+                <li><button type="button" class="btn btn-primary" ng-click="vm.contactoPage()">Contacto</button></li>
+                <li><button type="button" class="btn btn-primary btn-lg" ng-click="vm.irAPanel()">Acceder a mi panel</button></li>
+            </ul> <!-- ul navbar-right -->
+        </div><!-- /.navbar-collapse -->
+    </div> <!-- container-fluid -->
+</nav>

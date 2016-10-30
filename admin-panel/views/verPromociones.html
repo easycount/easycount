@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase">Promociones</h1>
+        <i>Consulta todas las promociones de EasyCount</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="tablesaw tablesaw-stack table table" data-tablesaw-mode="stack" id="dataTables-promociones">
+                    <thead>
+                    <tr id="cabeceraTabla">
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" style="text-align:center;">Descripcion</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Codigo de barras</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Tipo</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Fecha de inicio</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Fecha de finalización</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Empresa</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Imprimir</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="contentTabla" ng-repeat="promocion in promos">
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Nombre</b><span class="tablesaw-cell-content">{{promocion.nombre}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Descripcion</b><span class="tablesaw-cell-content">{{promocion.descripcion}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Codigo de barras</b><span class="tablesaw-cell-content">{{promocion.barcode}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Tipo</b><span class="tablesaw-cell-content">{{promocion.tipo}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Fecha de inicio</b><span class="tablesaw-cell-content">{{promocion.f_desde}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Fecha de finalizacion</b><span class="tablesaw-cell-content">{{promocion.f_hasta}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Empresa</b><span class="tablesaw-cell-content">{{promocion.empresa}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Imprimir</b><span class="tablesaw-cell-content"><div class="col-md-1">
+                            <button id="codigoBarras" data-tag="{{promocion.barcode}}" name="codigoBarras" class="btn btn-easy" ng-click="imprimirCodigo(promocion.barcode)">Imprimir Codigo</button>
+                        </div>
+                        </span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<br><br><br>
+<div id="bar"></div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div id="co"></div>
+<!-- /.ro

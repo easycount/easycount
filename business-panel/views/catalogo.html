@@ -1,0 +1,69 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>Catálogo de productos</strong></h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading col-lg-12 col-md-12 col-xs-12">
+                <section class="col-lg-3 col-md-6 col-xs-12">
+                    <strong class="uppercase">Nombre:</strong>
+                    <input type="text" ng-model=vm.buscadorNombre ng-change="vm.busquedaPorNombre()"/>
+                </section>
+
+                <section class="col-lg-3 col-md-6 col-xs-12">
+                    <strong class="uppercase">Tipo:</strong>
+                    <select ng-change="vm.recargarPagina()" ng-model=vm.buscadorTipo>
+                        <option value="">Todos</option>
+                        <option ng-repeat="tipo in vm.tiposDisponibles" value="{{tipo}}">{{tipo}}</option>
+                    </select>
+                </section>
+
+                <section class="col-lg-3 col-md-6 col-xs-12">
+                    <strong class="uppercase"> Ordenar por: </strong>
+                    <select ng-change="vm.cambiarPaginacion(vm.paginacionActual)" ng-model="vm.orden">
+                        <option value="name">Nombre</option>
+                        <option value="precio">Precio</option>
+                        <option value="type">Tipo</option>
+                    </select>
+                </section>
+                <section class="col-lg-3 col-md-6 col-xs-12">
+                    <input type="checkbox" ng-change="vm.cambiarPaginacion(vm.paginacionActual)" ng-model="vm.invertir" />
+                    <strong class="uppercase"> Invertir</strong>
+                </section>
+            </div>
+            <div class="panel-body">
+                <table ng-if="productos.length>0" class="tablesaw tablesaw-stack table" data-tablesaw-mode="stack" id="dataTables-catalogo">
+                    <thead>
+                    <tr id="cabeceraTabla">
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" style="text-align:center;">Tipo</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Precio</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Controles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="contentTabla" ng-repeat="producto in productos">
+                        <td><b class="tablesaw-cell-label">Nombre</b><span class="tablesaw-cell-content">{{producto.name}}</span></td>
+                        <td><b class="tablesaw-cell-label">Tipo</b><span class="tablesaw-cell-content">{{producto.type}}</span></td>
+                        <td><b class="tablesaw-cell-label">Precio</b><span class="tablesaw-cell-content">{{producto.precio | number:2}} €</span></td>
+                        <td><a ui-sref="dashboard.producto({ superId: producto.prod_id })" class="btn btn-easy">Ver productos</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-if="vm.numPags>1" id="navegacionPags">
+                    <span ng-click="vm.cambiarPaginacion(vm.paginacionActual-1)"> << </span>
+                    <span ng-if="i==1 || i==vm.navegacion.length-1 || (i>vm.paginacionActual-2&&i<vm.paginacionActual+2)" ng-class="i==vm.paginacionActual ? 'navegacionMarcado':''" ng-click="vm.cambiarPaginacion(i)" ng-repeat="i in vm.navegacion"> <span class="puntosDer" ng-if="i==vm.navegacion.length-1 && vm.paginacionActual<vm.numPags-3">...</span>{{i}}<span class="puntosIzd" ng-if="i==1 && vm.paginacionActual>3">...</span> </span>
+                    <span ng-click="vm.cambiarPaginacion(vm.paginacionActual+1)"> >> </span>
+                </div>
+            </div>
+            <div class="panel-body" ng-if="productos.length<=0">
+                ¡No existen productos!
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.ro

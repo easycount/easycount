@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="styles/card.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.transitions.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
+
+<div xmlns="http://www.w3.org/1999/html" >
+    <div class="row">
+        <div class="col-lg-12 page-header text-center ">
+            <img ng-src="images/EasyLetras2.png" alt="EasyCount">
+            <!--<h1 class="uppercase">EasyCount</h1>-->
+        </div>
+        <h2 style="margin-top: 15%;" id="textoLoader" class="text-center uppercase page-header">
+            <strong><i class="easy">Espera unos segundos, estamos preparando todo para ti</i></strong>
+        </h2>
+        <div id="loaderInicio" class="bubbles">
+            <span></span>
+            <span id="bubble2"></span>
+            <span id="bubble3"></span>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row" ng-if="vm.cargado == true">
+
+        <div class="row-cards">
+            <div id ="card1" class="card transition">
+                <h2 class="transition">Gasto Mensual<br><span id="numero">{{vm.gastoAcumulado| number:2}} &euro;</span><br></h2>
+                <p id="datos">Conoce todos tus gastos realizados este mes. Y compáralo con los anteriores.</p>
+                <div class="cta-container transition"><a href="javascript:void(0)" class="cta" ng-click="vm.irA(1)" >Ver gasto</a></div>
+                <div class="card_circle transition"></div>
+            </div>
+
+            <div id ="card2" class="card transition">
+                <h2 class="transition">Productos comprados <br><span id="numero">{{vm.numProductosComprados}}</span></h2>
+                <p id="datos">Conoce todos los productos comprados este mes. Y compáralos con los meses anteriores.</p>
+                <div class="cta-container transition"><a href="javascript:void(0)" class="cta" ng-click="vm.irA(2)">Ver</a></div>
+                <div class="card_circle transition"></div>
+            </div>
+
+            <div id ="card3" class="card transition">
+                <h2 class="transition">Valoraciones <br><span id="numero">{{vm.numProductosValorados}}</span></h2>
+                <p id="datos">Conoce las valoraciones que has realizado. Y compáralas con el resto de la comunidad.</p>
+                <div class="cta-container transition"><a href="javascript:void(0)" class="cta" ng-click="vm.irA(3)">Ver</a></div>
+                <div class="card_circle transition"></div>
+            </div>
+
+            <div id ="card4" class="card transition">
+                <h2 class="transition">Opiniones <br><span id="numero">{{vm.numProductosOpinados}}</span><br></h2>
+                <p id="datos">Conoce las opiniones que has realizado. Y compáralas con el resto de la comunidad.</p>
+                <div class="cta-container transition"><a href="javascript:void(0)" class="cta" ng-click="vm.irA(4)">Ver</a></div>
+                <div class="card_circle transition"></div>
+            </div>
+
+        </div>
+        <div id="homePromos">
+            <h2 class="text-center uppercase page-header">
+                <strong ng-if="vm.promociones.length<=0"><i class="easy">Aquí aparecerán tus promociones personalizadas</i></strong>
+                <strong ng-if="vm.promociones.length>0"><i class="easy">Promociones</i></strong>
+            </h2>
+            <data-owl-carousel class="owl-carousel" data-options="{navigation: false, pagination: true, rewindNav : true , items:3, margin:10 }">
+                <div owl-carousel-item="" ng-repeat="item in vm.promociones" class="item">
+                    <p><img ng-src="images/sale.png" width="70"/> </p>
+                    <h3>{{item.name}}</h3>
+                    <p><i>{{item.description}}</i></p>
+                    <!--<a href="" class="btn-promos">Ver</a>-->
+                </div>
+            </data-owl-carousel>
+        </div>
+
+        <!---->
+        <!--<stats id="recEstadisticas" title="Gastos" number="{{vm.gastoAcumulado| number:2}}" goto="Estadísticas" comments="gastados en  este mes" class="recuadroDashboard" ng-click="vm.irA(1)" colour="white" type="euro"></stats>-->
+        <!--<stats comments="productos comprados" number="{{vm.numProductosComprados}}" goto="Productos comprados" class="recuadroDashboard" ng-click="vm.irA(2)" colour="white" type="shopping-cart"></stats>-->
+        <!--<stats comments="valoraciones realizadas" number="{{vm.numProductosValorados}}" goto="Valoraciones realizadas" class="recuadroDashboard" ng-click="vm.irA(3)" colour="white" type="star"></stats>-->
+        <!--<stats comments="opiniones realizadas" number="{{vm.numProductosOpinados}}" goto="Opiniones realizadas" class="recuadroDashboard" ng-click="vm.irA(4)" colour="white" type="comments"></stats>-->
+
+        <!--<div class="col-lg-4 col-md-12">-->
+        <!--<div class="panel panel-default tabla">-->
+        <!--<div class="panel-heading text-center uppercase">-->
+        <!--<i class="fa fa-bell fa-fw"></i> <strong><i>Últimas acciones</i></strong>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.panel-heading &ndash;&gt;-->
+        <!--<notifications></notifications>-->
+        <!--&lt;!&ndash; /.panel-body &ndash;&gt;-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.panel &ndash;&gt;-->
+
+        <!--&lt;!&ndash;<chat></chat>&ndash;&gt;-->
+        <!--&lt;!&ndash; /.panel .chat-panel &ndash;&gt;-->
+        <!--</div>-->
+    </div>
+</div>
+<!-- /.row -->

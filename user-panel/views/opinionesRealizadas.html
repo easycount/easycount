@@ -1,0 +1,45 @@
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Productos opinados</h1>
+    </div>
+</div>
+<div class="row" >
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Listado de productos que has opinado hasta ahora
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="tablesaw tablesaw-stack table table-striped table-bordered" style="text-align:center;" id="dataTables-productos">
+                        <thead>
+                        <tr id="cabeceraTabla">
+                            <th>Fecha</th>
+                            <th>Producto</th>
+                            <th>Empresa</th>
+                            <th>Opinión</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr id="contentTabla" ng-repeat="producto in vm.productosOpinados1 | orderBy:'fechaOrden':true">
+                            <td><b class="tablesaw-cell-label">FECHA</b><span class="tablesaw-cell-content">{{vm.formatearFecha(producto.fecha)}}</span></td>
+                            <td><b class="tablesaw-cell-label">PRODUCTO</b><span ui-sref="dashboard.producto({id: producto._id })" class="punteroEnlace tablesaw-cell-content">{{producto.nombreProducto}}</span></td>
+                            <td><b class="tablesaw-cell-label">EMPRESA</b><span class="tablesaw-cell-content">{{producto.nombreEmpresa}}</span></td>
+                            <td><b class="tablesaw-cell-label">OPINIÓN</b><span class="tablesaw-cell-content estrellas">{{producto.texto}}</span></td>
+                </tr>
+
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->

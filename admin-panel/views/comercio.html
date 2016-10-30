@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Comercios</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="hola" class="col-lg-12">
+            <button id="nuevoComercioButton" type="button" class="btn btn-success pull-left"><i class="fa fa-plus"></i> Nuevo comercio</button>
+        </div>
+        <div class="">
+            <table class="tablesaw tablesaw-stack table table-striped table-bordered" data-tablesaw-mode="stack" style="text-align:center;" id="dataTables-comercios">
+                <thead>
+                    <tr id="cabeceraTabla">
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Nombre</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" style="text-align:center;">Número de productos</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Expiración de contrato</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Controles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr id="contentTabla" ng-repeat="comercio in comercios">
+                    <td><b class="tablesaw-cell-label">NOMBRE</b><span class="tablesaw-cell-content">{{comercio.nombre}}</span></td>
+                    <td><b class="tablesaw-cell-label">NÚMERO DE PRODUCTOS</b><span class="tablesaw-cell-content">{{comercio.numProductos}}</span></td>
+                    <td><b class="tablesaw-cell-label">EXPIRACIÓN DE CONTRATO</b><span class="tablesaw-cell-content">{{comercio.expira}}</span></td>
+                    <td><button type="button" class="btn btn-info">Ver productos</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.ro

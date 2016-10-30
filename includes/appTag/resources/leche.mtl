@@ -1,0 +1,21 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 2
+
+newmtl cep
+Ns 15.686275
+Ka 0.000000 0.000000 0.000000
+Kd 0.115200 0.294400 0.473600
+Ks 0.200000 0.200000 0.200000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl pak
+Ns 3.921569
+Ka 0.000000 0.000000 0.000000
+Kd 0.608000 0.608000 0.608000
+Ks 0.200000 0.200000 0.200000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\root\Downloads\Comida\tetrapak\label.jpg

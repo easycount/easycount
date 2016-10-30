@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase">Tickets y listas</h1>
+        <i>Consulta los tickets y las listas creadas en el sistema</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row panel panel-default">
+    <div class="col-lg-12 col-sm-12 panel-heading contPestanyas">
+        <button id="valTipo" class="btn btn-easy-invert" ng-click="vm.cargarEstadisticas(0)">Valoraciones y opiniones</button>
+    </div>
+
+    <!--************************************** PESTAÑA 1: VALORACIÓN DE TIPOS DE PRODUCTOS ***********************************-->
+    <div ng-if="vm.estadisticas==0">
+        <div class="col-lg-6 col-sm-12" ng-if="vm.objetoCompras.length<=0">No hay datos de esta categoría</div>
+        <div class="col-lg-6 col-sm-12" ng-if="vm.objetoCompras.length>0">
+            <div class="panel-body col-lg-12 col-sm-12">
+                <div class="dataTable_wrapper">
+                    <table class="tablesaw tablesaw-stack table"  id="dataTables-val">
+                        <thead>
+                        <tr id="cabeceraTabla" class="cabeceraTabla">
+                            <th>Mes</th>
+                            <th>Listas de la compra</th>
+                            <th>Tickets de compra</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="contentTabla" class="contentTabla" ng-repeat="val in vm.objetoCompras | orderBy:'valMedTipo':true">
+                            <td><b class="tablesaw-cell-label">MES</b><span class="tablesaw-cell-content">{{val.fecha}}</span></td>
+                            <td><b class="tablesaw-cell-label">LISTAS DE LA COMPRA</b><span class="tablesaw-cell-content">{{val.num}}</span></td>
+                            <td><b class="tablesaw-cell-label">TICKETS DE COMPRA </b>{{val.numFallidas}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 valoracionMediaProd" id="line-chart">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Tickets y listas</strong></div>
+                <div class="panel-body">
+                    <canvas id="line" class="chart chart-line chart-xl" data="line.data" labels="line.labels" legend="true"
+                            click="line.onClick" colours="line.colours" series="line.series"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

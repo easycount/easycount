@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="corporativeApp" ng-controller="corporativeAppCtrl as vm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Completa tu registro</title>
+    <link rel="shortcut icon" href="../images/easycountlogo.png">
+    <link rel="stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href = "./styles/estilo.css">
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.js"></script>
+    <script src="js/main.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
+    <script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <style>
+        .completarRegistro{
+            background: rgb(247, 247, 247);
+            border: 1px solid rgba(147, 184, 189,0.8);
+            min-height: 560px;
+            color: rgb(64, 92, 96) !important;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            width: 60%;
+            min-width: 500px;
+            padding: 18px 6% 60px 6%;
+            float: none !important;
+            border-radius: 10px;
+        }
+            .completarRegistro h2{
+                font-size: 30px;
+                color: rgb(6, 106, 117);
+                padding: 2px 0 10px 0;
+                font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;
+                font-weight: bold;
+                text-align: center;
+                padding-bottom: 30px;
+
+                background: -webkit-repeating-linear-gradient(-45deg,
+                rgb(18, 83, 93) ,
+                rgb(18, 83, 93) 20px,
+                rgb(64, 111, 118) 20px,
+                rgb(64, 111, 118) 40px,
+                rgb(18, 83, 93) 40px);
+                -webkit-text-fill-color: transparent;
+                -webkit-background-clip: text;
+            }
+
+        .completarRegistro input:not([type="radio"]):not([type="submit"]):not([type="checkbox"]) {
+                width: 92%;
+                margin-top: 4px;
+                padding: 10px 5px 10px 32px;
+                border: 1px solid rgb(178, 178, 178);
+                -webkit-appearance: textfield;
+                -webkit-box-sizing: content-box;
+                -moz-box-sizing: content-box;
+                box-sizing: content-box;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                -webkit-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+                -moz-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+                box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+                -webkit-transition: all 0.2s linear;
+                -moz-transition: all 0.2s linear;
+                -o-transition: all 0.2s linear;
+                transition: all 0.2s linear;
+            }
+
+        .inputTwitter{
+            color: black;
+        }
+
+        .inputTwitter[type="checkbox"]{
+            margin-right: 20px;
+        }
+
+        .inputTwitter[type="radio"]{
+            margin-right: 20px;
+            margin-left: 5px;
+        }
+
+        .labelSecundaria{
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+<!-- CABECERA -->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top"><img style="display:inline;margin-right: 8px;" src="../images/easycountlogo.png" width="25px"/><span style="display:inline;text-transform:none!important">Easy<div style="display:inline;opacity:1;font-weight:bold;">Count</div></span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="/">INICIO</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/contacto">CONTACTO</a>
+                </li>
+                <li>
+                    <% if(user==null){%>
+                    <a class="page-scroll" href="/login">INICIAR SESION</a>
+                    <% }else{ %>
+                    <a class="page-scroll" href="#" ng-click="vm.irAPanel()">ACCEDER A MI PANEL</a>
+                    <% }%>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">DESCARGAS</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<!-- CONTENIDO -->
+<form id="contactForm" ng-submit="vm.actualizarMail( '<%=user._id%>' )" class="completarRegistro form-horizontal col-lg-12">
+    <h2 id="formLegend">¡Ya queda poco <%=user.name%>! Completa estos datos para finalizar tu registro</h2>
+    <div class="form-group animate form">
+        <% if(  email==-1){ %>
+        <p>
+            <label for="inputEmail" class="control-label">Email</label>
+            <div class="inputTwitter">
+                <input type="email" class="" ng-model="vm.emailTwitter" id="inputEmail" name="inputEmail" placeholder="Email" required="required" />
+            </div>
+        </p>
+        <% } %>
+
+        <% if(f_nacimiento==-1){ %>
+        <p>
+            <label for="inputFecha" class="control-label">Fecha de nacimiento</label>
+            <div class="inputTwitter">
+                <input type="date" class="" ng-model="vm.fechaTwitter" id="inputFecha" name="inputFecha" placeholder="eg. 01/12/1987" required="required" />
+            </div>
+        </p>
+        <% } %>
+
+        <% if(genero==-1){ %>
+        <p>
+            <label class=" control-label">Sexo</label>
+            <div>
+                <label for="idInputSexoH" class="labelSecundaria">Hombre</label><input type="radio" value="Hombre" class="inputTwitter" ng-model="vm.sexoTwitter" id="idInputSexoH" name="inputSexo" required="required" />
+                <label for="idInputSexoM" class="labelSecundaria">Mujer</label><input type="radio" value="Mujer" class="inputTwitter" ng-model="vm.sexoTwitter" id="idInputSexoM" name="inputSexo" required="required" />
+            </div>
+        </p>
+        <% } %>
+
+        <p>
+            <label class=" control-label">Restricciones</label><br />
+
+            <label class="labelSecundaria" for="inputvegetariano">Vegano</label>
+            <input class="inputTwitter" ng-model="vm.vegetarianoTwitter" id="inputvegetariano" name="inputvegetariano" value="vegetariano" type="checkbox" />
+            <label class="labelSecundaria" for="inputceliaco">Celiaco</label>
+            <input class="inputTwitter" ng-model="vm.celiacoTwitter" id="inputceliaco" name="inputceliaco" value="celiaco" type="checkbox" />
+            <label class="labelSecundaria" for="inputlactosa">Intolerante a la Lactosa</label>
+            <input class="inputTwitter" ng-model="vm.lactosaTwitter" id="inputlactosa" name="inputlactosa" value="lactosa" type="checkbox" />
+            <label class="labelSecundaria" for="inputdiabetico">Diabético</label>
+            <input class="inputTwitter" ng-model="vm.diabeticoTwitter" id="inputdiabetico" name="inputdiabetico" value="diabetico" type="checkbox" />
+            <label class="labelSecundaria" for="inputfrutos">Alérgico a los frutos secos</label>
+            <input class="inputTwitter" ng-model="vm.frutosTwitter" id="inputfrutos" name="inputfrutos" value="frutos" type="checkbox" />
+        </p>
+
+        <% if(n_personas==-1){ %>
+        <p>
+            <label for="inputPersonas" class="control-label">Número de personas para las que compras</label>
+            <div class="inputTwitter">
+                <input type="number" class="" ng-model="vm.personasTwitter" id="inputPersonas" name="inputPersonas" placeholder="eg. 3" required="required" />
+            </div>
+        </p>
+        <% } %>
+
+    </div>
+    <div class="form-group">
+        <div class="">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

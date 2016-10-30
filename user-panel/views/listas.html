@@ -1,0 +1,64 @@
+
+<div class="row">
+    <div class="page-header text-center">
+        <h1 class="uppercase"><strong>Listas</strong></h1>
+        <i>Crea y edita tus propias listas de productos o consulta las que nosotros te ofrecemos</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div id="loaderListas" class="bubbles">
+    <span></span>
+    <span id="bubble2"></span>
+    <span id="bubble3"></span>
+</div>
+<div class="row" ng-if="vm.cargado == true">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <button id="listasUsu" class="btn btn-easy" ng-click="vm.cambiarPestanya(0)">Mis listas</button>
+                <button id="listasPre" class="btn btn-easy" ng-click="vm.cambiarPestanya(1)">Listas predefinidas</button>
+                <button type="button" ui-sref="dashboard.nuevaLista" class="btn btn-easy">Nueva lista</button>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div ng-if="!vm.hayListas">
+                    Todavía no has creado ninguna lista.
+                </div>
+                <div class="dataTable_wrapper">
+                    <table ng-if="vm.hayListas" class="tablesaw tablesaw-stack table" id="dataTables-comercios">
+                        <thead>
+                        <tr id="cabeceraTabla">
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th ng-if="vm.listasUsu">Fecha</th>
+                            <th>Controles</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr id="contentTabla" ng-repeat="lista in vm.listas">
+                            <td><b class="tablesaw-cell-label">NOMBRE</b><span class="tablesaw-cell-content">{{lista.name}}</span></td>
+                            <td><b class="tablesaw-cell-label">DESCRIPCIÓN</b><span class="tablesaw-cell-content">{{lista.description}}</span></td>
+                            <td ng-if="vm.listasUsu" ><b class="tablesaw-cell-label">FECHA</b><span class="tablesaw-cell-content">{{vm.formatearFechaPretty(lista.fecha)}}</span></td>
+                            <td>
+                                <a class="btn btn-easy"  ui-sref="dashboard.viewLista({ listaId: lista._id })">Ver</a>
+                                <a ng-show="vm.listasUsu" ng-click="vm.eliminarLista(lista._id)" class="btn btn-easy cancelar">Eliminar</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="vm.numPags>1" id="navegacionPags">
+                        <span ng-click="vm.cambiarPaginacion(vm.paginacionActual-1)"> << </span>
+                        <span ng-if="i==1 || i==vm.navegacion.length-1 || (i>vm.paginacionActual-2&&i<vm.paginacionActual+2)" ng-class="i==vm.paginacionActual ? 'navegacionMarcado':''" ng-click="vm.cambiarPaginacion(i)" ng-repeat="i in vm.navegacion"> <span class="puntosDer" ng-if="i==vm.navegacion.length-1 && vm.paginacionActual<vm.numPags-3">...</span>{{i}}<span class="puntosIzd" ng-if="i==1 && vm.paginacionActual>3">...</span> </span>
+                        <span ng-click="vm.cambiarPaginacion(vm.paginacionActual+1)"> >> </span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- /.row -->

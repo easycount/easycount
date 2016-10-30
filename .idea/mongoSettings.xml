@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MongoConfiguration">
+    <option name="serverConfigurations">
+      <list>
+        <ServerConfiguration>
+          <option name="label" value="local" />
+          <option name="serverUrls">
+            <list>
+              <option value="localhost:27017" />
+            </list>
+          </option>
+        </ServerConfiguration>
+        <ServerConfiguration>
+          <option name="label" value="Produccion" />
+          <option name="password" value="123456" />
+          <option name="serverUrls">
+            <list>
+              <option value="ds033145.mongolab.com:33145" />
+            </list>
+          </option>
+          <option name="userDatabase" value="easycountdata" />
+          <option name="username" value="easycounttest" />
+        </ServerConfiguration>
+      </list>
+    </option>
+    <option name="shellPath" value="C:\Program Files\MongoDB\Server\3.0\bin\mongo.exe" />
+  </component>
+</project>

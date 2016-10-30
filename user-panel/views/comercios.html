@@ -1,0 +1,76 @@
+<link rel="stylesheet" type="text/css" href="styles/table/default.css" />
+<link rel="stylesheet" type="text/css" href="styles/table/component.css" />
+<script src="js/table/modernizr.custom.js"></script>
+
+
+<div class="row">
+    <div class="page-header col-lg-12  text-center">
+        <h1 class="uppercase"><strong>Comercios</strong></h1>
+        <i>Selecciona un comercio para ver sus productos</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div id="loaderComercios" class="bubbles">
+    <span></span>
+    <span id="bubble2"></span>
+    <span id="bubble3"></span>
+</div>
+<div class="main" ng-if="vm.cargado==true">
+    <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+        <div class="cbp-vm-options">
+            <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid">Grid View</a>
+            <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
+        </div>
+
+        <ul>
+            <li ng-repeat="supermercado in supermercados" tabla-item>
+
+                <a class="cbp-vm-image" href="" ui-sref="dashboard.productos({ superId: supermercado._id })"><img ng-src="{{supermercado.photo}}"></a>
+                <h3 class="cbp-vm-title"><span>{{supermercado.name}}</span></h3>
+                <div class="cbp-vm-price">200 artículos</div>
+                <div class="cbp-vm-details">
+
+                </div>
+                <a class="cbp-vm-icon cbp-vm-add" ui-sref="dashboard.productos({ superId: supermercado._id })">Ver productos</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="row">-->
+<!--<div class="col-lg-12">-->
+<!--<table class="tablesaw panel tablesaw-stack table text-center"  id="dataTables-comercios">-->
+<!--<thead>-->
+<!--<tr id="cabeceraTabla">-->
+<!--<th>Nombre</th>-->
+<!--<th>Productos</th>-->
+<!--<th>Controles</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr id="contentTabla" ng-repeat="supermercado in supermercados">-->
+<!--<td class="text-center"><b class="tablesaw-cell-label">NOMBRE</b><span class="tablesaw-cell-content">{{supermercado.name}}</span></td>-->
+<!--<td class="text-center"><b class="tablesaw-cell-label">PRODUCTOS</b><span class="tablesaw-cell-content">{{supermercado.catalogo.length}}</span></td>-->
+<!--<td class="text-center"><a ui-sref="dashboard.productos({ superId: supermercado._id })" class="btn btn-easy">Ver productos</a></td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
+<!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; /.ro-->
+
+<!-- JS para tabla -->
+<script src="js/table/classie.js"></script>
+<script src="js/table/cbpViewModeSwitch.js"></script>

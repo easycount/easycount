@@ -1,0 +1,161 @@
+<!-- CSS tabla -->
+<link rel="stylesheet" type="text/css" href="styles/table/default.css" />
+<link rel="stylesheet" type="text/css" href="styles/table/component.css" />
+<script src="js/table/modernizr.custom.js"></script>
+
+
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>{{ supermercado }}</strong></h1>
+        <i>Añade los productos a tu lista de la compra</i>
+    </div>
+    <!-- /.col-lg-12 -->
+
+</div>
+<div id="loaderProductos" class="bubbles">
+    <span></span>
+    <span id="bubble2"></span>
+    <span id="bubble3"></span>
+</div>
+<div class="main"  ng-if="vm.cargado==true">
+    <div class="navigation">
+        <a ui-sref="dashboard.table">Comercios</a> >> <span href="#"><b> {{supermercado}}</b></span>
+    </div>
+
+
+    <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+        <div class="cbp-vm-options">
+            <section class="buscador">
+                <section class="col-lg-3 col-md-12 col-xs-12">
+                    <input type="text" ng-model=vm.buscadorNombre ng-change="vm.busquedaPorNombre()" placeholder="Nombre"/>
+                </section>
+
+                <section class="col-lg-3 col-md-12 col-xs-12">
+                    <select ng-change="vm.recargarPagina()" ng-model=vm.buscadorTipo>
+                        <option value="" disabled>Filtrar por tipo...</option>
+                        <option value="">Todos</option>
+                        <option ng-repeat="tipo in vm.tiposDisponibles" value="{{tipo}}">{{tipo}}</option>
+                    </select>
+                </section>
+
+                <section class="col-lg-3 col-md-12 col-xs-12">
+                    <select ng-change="vm.cambiarPaginacion(vm.paginacionActual)" ng-model="vm.orden">
+                        <option value="name" disabled>Ordenar por ...</option>
+                        <option value="name">Nombre</option>
+                        <option value="precio">Precio</option>
+                        <option value="type">Tipo</option>
+                    </select>
+                </section>
+            </section>
+            <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid">Grid View</a>
+            <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
+        </div>
+        <ul>
+            <li ng-repeat="producto in productos" tabla-item>
+
+                <a class="cbp-vm-image" href="" ui-sref="dashboard.producto({id: producto.prod_id })"><img ng-src="{{producto.photo}}"  height="100"></a>
+                <h3 class="cbp-vm-title">{{producto.name}}</h3>
+                <div class="cbp-vm-price">{{producto.precio | number:2}}€</div>
+                <div class="cbp-vm-details">
+                    {{vm.recortarDescripcion(producto.description)}}
+                </div>
+                <a class="cbp-vm-icon cbp-vm-add"   ng-click="anyadirLista('Event', producto.prod_id ,producto.name)">Añadir a lista</a>
+            </li>
+        </ul>
+        <div ng-if="productos.length==0" class="dataTable_wrapper text-center" id="noExisten">
+            ¡No existen productos!
+        </div>
+    </div>
+
+    <div ng-if="vm.numPags>1" id="navegacionPags">
+        <span ng-click="vm.cambiarPaginacion(vm.paginacionActual-1)"> <i class="fa fa-chevron-left"></i> </span>
+        <span ng-if="i==1 || i==vm.navegacion.length || (i>vm.paginacionActual-2&&i<vm.paginacionActual+2)" ng-class="i==vm.paginacionActual ? 'navegacionMarcado':''" ng-click="vm.cambiarPaginacion(i)" ng-repeat="i in vm.navegacion"> <span class="puntosDer" ng-if="i==vm.navegacion.length && vm.paginacionActual<vm.numPags-3">...</span>{{i}}<span class="puntosIzd" ng-if="i==1 && vm.paginacionActual>3">...</span> </span>
+        <span ng-click="vm.cambiarPaginacion(vm.paginacionActual+1)"> <i class="fa fa-chevron-right"></i></span>
+    </div>
+</div>
+
+
+
+
+
+<!--<div class="row" >-->
+<!--<div class="col-lg-12">-->
+<!--<div class="panel panel-default">-->
+<!--&lt;!&ndash; /.panel-heading &ndash;&gt;-->
+<!--<div class="panel-heading col-lg-12 col-md-12 col-xs-12 ">-->
+<!--<section class="col-lg-3 col-md-6 col-xs-12">-->
+<!--<strong class="uppercase">Nombre:</strong>-->
+<!--<input type="text" ng-model=vm.buscadorNombre ng-change="vm.busquedaPorNombre()"/>-->
+<!--</section>-->
+
+<!--<section class="col-lg-3 col-md-6 col-xs-12">-->
+<!--<strong class="uppercase">Tipo:</strong>-->
+<!--<select ng-change="vm.recargarPagina()" ng-model=vm.buscadorTipo>-->
+<!--<option value="">Todos</option>-->
+<!--<option ng-repeat="tipo in vm.tiposDisponibles" value="{{tipo}}">{{tipo}}</option>-->
+<!--</select>-->
+<!--</section>-->
+
+<!--<section class="col-lg-3 col-md-6 col-xs-12">-->
+<!--<strong class="uppercase">Ordenar por:</strong>-->
+<!--<select ng-change="vm.cambiarPaginacion(vm.paginacionActual)" ng-model="vm.orden">-->
+<!--<option value="name">Nombre</option>-->
+<!--<option value="precio">Precio</option>-->
+<!--<option value="type">Tipo</option>-->
+<!--</select>-->
+<!--</section>-->
+<!--<section class="col-lg-3 col-md-6 col-xs-12">-->
+<!--<input type="checkbox" ng-change="vm.cambiarPaginacion(vm.paginacionActual)" ng-model="vm.invertir" />-->
+<!--<strong class="uppercase"> Invertir</strong>-->
+<!--</section>-->
+<!--</div>-->
+
+<!--<div class="panel-body">-->
+<!--<div ng-if="productos.length>0" class="dataTable_wrapper">-->
+<!--<table class="tablesaw tablesaw-stack table"  id="dataTables-productos">-->
+<!--<thead>-->
+<!--<tr id="cabeceraTabla">-->
+<!--<th>Nombre</th>-->
+<!--<th>Precio</th>-->
+<!--<th>Tipo</th>-->
+<!--<th>Descripción</th>-->
+<!--<th>Controles</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+
+<!--<tr id="contentTabla" ng-repeat="producto in productos">-->
+<!--<td><b class="tablesaw-cell-label">NOMBRE</b><span ui-sref="dashboard.producto({id: producto.prod_id })" class="punteroEnlace tablesaw-cell-content">{{producto.name}}</span></td>-->
+<!--<td><b class="tablesaw-cell-label">PRECIO</b><span class="tablesaw-cell-content">{{producto.precio}}€</span></td>-->
+<!--<td><b class="tablesaw-cell-label">TIPO</b><span class="tablesaw-cell-content">{{producto.type}}</span></td>-->
+<!--<td><b class="tablesaw-cell-label">DESCRIPCION</b><span class="tablesaw-cell-content">{{producto.description}}</span></td>-->
+<!--<td>-->
+<!--<button type="button" ui-sref="dashboard.producto({id: producto.prod_id })" class="btn btn-easy">Ver detalles</button>-->
+<!--<button type="button" class="btn btn-easy" ng-click="anyadirLista('Event', producto.prod_id ,producto.name)">Añadir a la lista</button>-->
+<!--</td>-->
+<!--</tr>-->
+
+<!--</tbody>-->
+<!--</table>-->
+<!--<div ng-if="vm.numPags>1" id="navegacionPags">-->
+<!--<span ng-click="vm.cambiarPaginacion(vm.paginacionActual-1)"> <i class="fa fa-chevron-left"></i> </span>-->
+<!--<span ng-class="i==vm.paginacionActual ? 'navegacionMarcado':''" ng-click="vm.cambiarPaginacion(i)" ng-repeat="i in vm.navegacion"> {{i}} </span>-->
+<!--<span ng-click="vm.cambiarPaginacion(vm.paginacionActual+1)"> <i class="fa fa-chevron-right"></i></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div ng-if="productos.length==0" class="dataTable_wrapper">-->
+<!--¡No existen productos!-->
+<!--</div>-->
+<!--&lt;!&ndash; /.panel-body &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; /.panel &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; /.row &ndash;&gt;-->
+
+
+<!-- JS para tabla -->
+<script src="js/table/classie.js"></script>
+<script src="js/table/cbpViewModeSwitch.js"></script>

@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase">Usuarios</h1>
+        <i>Consulta las entradas de los usuarios al sistema</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row panel panel-default">
+    <div class="col-lg-12 col-sm-12 panel-heading contPestanyas">
+        <button id="valTipo" class="btn btn-easy-invert" ng-click="vm.cargarEstadisticas(0)">Entradas al sistema
+        </button>
+        <h3 class="col-lg-12 col-sm-12">Total de usuarios: {{vm.tituloPestanya}}</h3>
+    </div>
+
+    <!--************************************** PESTAÑA 1: ENTRADAS AL SISTEMA ***********************************-->
+    <div ng-if="vm.estadisticas==0">
+        <div class="col-lg-6 col-sm-12" ng-if="vm.usuariosSistema.length<=0">No hay entradas al sistema</div>
+        <div class="col-lg-6 col-sm-12" ng-if="vm.usuariosSistema.length>0">
+            <div class="panel-body col-lg-12 col-sm-12">
+                <div class="dataTable_wrapper">
+                    <table class="tablesaw tablesaw-stack table" id="dataTables-val">
+                        <thead>
+                        <tr id="cabeceraTabla" class="cabeceraTabla">
+                            <th>Mes</th>
+                            <th>Nuevos usuarios</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="contentTabla" class="contentTabla" ng-repeat="usu in vm.usuariosSistema">
+                            <td><b class="tablesaw-cell-label">MES</b><span class="tablesaw-cell-content">{{usu.mes}}</span></td>
+                            <td><b class="tablesaw-cell-label">NUEVOS USUARIOS</b><span class="tablesaw-cell-content">{{usu.nuevos}}</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="vm.numPags>1" id="navegacionPags">
+                        <span ng-click="vm.cambiarPaginacion(vm.paginacionActual-1)"> << </span>
+                        <span ng-if="i==1 || i==vm.navegacion.length-1 || (i>vm.paginacionActual-2&&i<vm.paginacionActual+2)" ng-class="i==vm.paginacionActual ? 'navegacionMarcado':''" ng-click="vm.cambiarPaginacion(i)" ng-repeat="i in vm.navegacion"> <span class="puntosDer" ng-if="i==vm.navegacion.length-1 && vm.paginacionActual<vm.numPags-3">...</span>{{i}}<span class="puntosIzd" ng-if="i==1 && vm.paginacionActual>3">...</span> </span>
+                        <span ng-click="vm.cambiarPaginacion(vm.paginacionActual+1)"> >> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 valoracionMediaProd" id="line-chart">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Nuevos usuarios por mes</strong></div>
+                <div class="panel-body">
+                    <canvas id="line" class="chart chart-line chart-xl" data="line.data" labels="line.labels" legend="true"
+                            click="line.onClick" colours="line.colours" series="line.series"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

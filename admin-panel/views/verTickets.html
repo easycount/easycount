@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase">Tickets</h1>
+        <i>Consulta todos los tickets de EasyCount</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="tablesaw tablesaw-stack table" data-tablesaw-mode="stack" id="dataTables-promociones">
+                    <thead>
+                    <tr id="cabeceraTabla">
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Id</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" style="text-align:center;">Usuario</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fecha</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Empresa</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Establecimiento</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Importe</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="contentTabla" ng-repeat="promocion in promos">
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Id</b><span class="tablesaw-cell-content">{{promocion.id}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Usuario</b><span class="tablesaw-cell-content">{{promocion.usuario}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Fecha</b><span class="tablesaw-cell-content">{{promocion.fecha}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Empresa</b><span class="tablesaw-cell-content">{{promocion.empresa}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Establecimiento</b><span class="tablesaw-cell-content">{{promocion.establecimiento}}</span></td>
+                        <td style="text-align:center;"><b class="tablesaw-cell-label">Importe</b><span class="tablesaw-cell-content">{{promocion.importe}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.ro

@@ -1,0 +1,270 @@
+<!-- CSS menu items -->
+<link rel="stylesheet" type="text/css" href="styles/menuLine/normalize.css" />
+<link rel="stylesheet" type="text/css" href="styles/menuLine/demo.css" />
+<link rel="stylesheet" type="text/css" href="styles/menuLine/component.css" />
+
+
+
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>Estadísticas</strong></h1>
+        <i>Consulta los productos más comprados y mejor valorados , además compara tus gastos con el resto de la comunidad</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row panel panel-default">
+    <section class="section section--menu panel-heading contPestanyas" id="Valentine">
+        <nav class="menu menu--valentine panel-heading contPestanyas">
+            <ul class="menu__list">
+                <li class="menu__item menu__item--current"><a href="javascript:void(0)"id="gastTiempo"  class="menu__link" ng-click="vm.cargarEstadisticas(0)">GASTO MEDIO POR TIEMPO</a></li>
+                <li class="menu__item"><a href="javascript:void(0)"id="gastCompra"  class="menu__link" ng-click="vm.cargarEstadisticas(1)">GASTO MEDIO POR COMPRA</a></li>
+                <li class="menu__item"> <a href="javascript:void(0)"id="prodFavoritos" class="menu__link" ng-click="vm.cargarEstadisticas(2)">PRODUCTOS FAVORITOS DE LA COMUNIDAD</a></li>
+                <li class="menu__item"> <a href="javascript:void(0)"id="prodMisComprados"  class="menu__link" ng-click="vm.cargarEstadisticas(3)">MIS PRODUCTOS MÁS COMPRADOS</a></li>
+                <!--<button id="prodMasComprados" class="btn btn-easy headerListas" ng-click="vm.cargarEstadisticas(4)">Productos más comprados en EasyCount</button>-->
+            </ul>
+        </nav>
+    </section>
+    <!--<h2 class="col-lg-12 col-sm-12">{{vm.tituloPestanya}}</h2>-->
+
+    <!--<section class="section section&#45;&#45;menu" id="Caliban">-->
+    <!--<nav class="menu menu&#45;&#45;caliban">-->
+    <!--<ul class="menu__list">-->
+    <!--<li class="menu__item menu__item&#45;&#45;current"><a href="javascript:void(0)" ng-click="vm.cambiarPestanya(0)" class="menu__link">Mis Listas</a></li>-->
+    <!--<li class="menu__item"><a href="javascript:void(0)" ng-click="vm.cambiarPestanya(1)" class="menu__link">Listas Predefinidas</a></li>-->
+    <!--<li class="menu__item" id="nuevaLista"><a href="javascript:void(0)" ui-sref="dashboard.nuevaLista"  class="menu__link">Nueva Lista</a></li>-->
+    <!--</ul>-->
+    <!--</nav>-->
+    <!--</section>-->
+
+    <div id="headerInput"class="col-lg-12 col-sm-12">
+        <div class="" ng-if="vm.estadisticas==0 || vm.estadisticas==1">
+            <label>Meses a mostrar </label>
+            <select ng-change="vm.cambiarNumMeses()" ng-model="vm.numMeses">
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="loaderEstad1" class="bubbles">
+        <span></span>
+        <span id="bubble2"></span>
+        <span id="bubble3"></span>
+    </div>
+    <!-- Gasto medio por tiempo -->
+
+    <div id="gastoTiempo" ng-init="vm.cargarEstadisticas(0);" ng-if="vm.estadisticas==0">
+        <div ng-if="vm.cargadoEstad1 == true">
+            <section class="col-lg-12 text-center">
+                <p class="uppercase "><i class="fa fa-angle-right fa-1x easy" aria-hidden="true"></i><strong>&nbsp;Gasto medio mensual: {{vm.datosUsuario.gastoMedioMensual | number:2}} €</strong></p>
+                <p class="uppercase "><i class="fa fa-angle-right fa-1x easy" aria-hidden="true"></i><strong>&nbsp;Gasto medio anual: {{vm.datosUsuario.gastoMedioAnual | number:2}}  €</strong></p>
+            </section>
+            <section class="col-lg-12 text-center">
+                <p class="uppercase "><i class="fa fa-angle-right fa-1x easy" aria-hidden="true"></i><strong>&nbsp; Gasto mensual actual: {{vm.gastoActualMensual | number:2}} €</strong></p>
+                <p class="uppercase "><i class="fa fa-angle-right fa-1x easy" aria-hidden="true"></i><strong>&nbsp; Gasto anual actual: {{vm.gastoActualAnual | number:2}} €</strong></p>
+            </section>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8 col-sm-12" id="bar-gastoMedio" ng-controller="ChartCtrl">
+                <div class="panel panel-default" ng-if="vm.cargadoEstad1 == true">
+                    <div class="panel-body">
+                        <canvas id="line1" class="chart chart-line" data="line1.data" labels="line1.labels" colours="line1.colours" series="line1.series" legend="true"
+                                click="line1.onClick"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Gasto medio por compra -->
+    <div ng-if="vm.estadisticas==1">
+        <div ng-if="vm.cargadoEstad2 == true">
+            <section class="col-lg-12 text-center">
+                <p class="uppercase"><i class="fa fa-angle-right fa-1x easy" aria-hidden="true"></i><strong>&nbsp;Gasto medio por compra (por mes): {{vm.datosUsuario.gastoPorCompraMensual | number:2}} € </strong></p>
+            </section>
+            <div class="col-lg-6 col-sm-12" id="bar-gastoMedioCompra">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Gasto medio por compra (por mes)</div>
+                    <div class="panel-body">
+                        <canvas id="line2" class="chart chart-line" data="line2.data" labels="line2.labels" colours="line2.colours" series="line2.series" legend="true"
+                                click="line2.onClick"></canvas>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12" id="line-numCompras">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Número de compras por mes</div>
+                    <div class="panel-body">
+                        <canvas id="bar" class="chart chart-bar chart-xl" data="bar1.data" colours="bar1.colours" labels="bar1.labels" legend="true"
+                                options="bar1.options" series="bar1.series"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Productos favoritos -->
+    <div ng-if="vm.estadisticas==2">
+        <div ng-if="vm.cargadoEstad3 == true">
+            <div class="panel-body col-lg-6 col-sm-12">
+                <div class="dataTable_wrapper">
+                    <table class="tablesaw tablesaw-stack table"  id="dataTables-val">
+                        <thead>
+                        <tr id="cabeceraTabla2" class="cabeceraTabla">
+                            <th>Posición</th>
+                            <th>Producto</th>
+                            <th>Valoración</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr id="contentTabla2" class="contentTabla" ng-repeat="prod in vm.productosVal">
+                            <td><b class="tablesaw-cell-label">POSICIÓN</b><span class="tablesaw-cell-content">{{$index+1}}</span></td>
+                            <td><b class="tablesaw-cell-label">PRODUCTO</b><span class="tablesaw-cell-content">{{prod.name}}</span></td>
+                            <td><b class="tablesaw-cell-label">VALORACIÓN</b><span class="tablesaw-cell-content">{{prod.valMedia | number:2}}</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+            <div class="col-lg-6 col-sm-12" id="line-valoraciones">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Productos mejores valorados por la comunidad</div>
+                    <div class="panel-body">
+                        <canvas id="bar2" class="chart chart-bar chart-xl" data="bar2.data" colours="bar2.colours" labels="bar2.labels" legend="true"
+                                options="bar2.options" series="bar2.series"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mis productos mas comprados -->
+    <div ng-if="vm.estadisticas==3">
+        <!--<div ng-if="vm.cargadoEstad4 == true">-->
+        <div class="col-lg-12 col-sm-12">
+            Filtrar por categoría:
+            <select ng-change="vm.cargarMisProductos()" ng-model="vm.tipoProd">
+                <option value="todos">Todos</option>
+                <option ng-repeat="tipo in vm.todosTipos" value="{{tipo}}">{{tipo}}</option>
+            </select>
+            <section class="checkEmpresa">
+                Filtrar por empresas:
+                <div class="checkEmpresa" ng-repeat="emp in vm.empresasCompra | orderBy:'name'">
+                    <input type="checkbox" id="{{emp.name}}" ng-change="vm.restringirEmpresas(emp)" ng-model="vm.auxEmpresas[$index]" value="emp.name">
+                    <label for="{{emp.name}}">{{emp.name}}</label>
+
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-6 col-sm-12" ng-if="vm.misProductos.length<=0">Todavía no has comprado productos de esta categoría</div>
+        <div class="col-lg-6 col-sm-12" ng-if="vm.misProductos.length>0">
+            <div class="panel-body col-lg-12 col-sm-12">
+                <div class="dataTable_wrapper">
+                    <table class="tablesaw tablesaw-stack table"  id="dataTables-prodsComp">
+                        <thead>
+                        <tr id="cabeceraTabla3" class="cabeceraTabla">
+                            <th>Posición</th>
+                            <th>Producto</th>
+                            <th>Empresa</th>
+                            <th>Cantidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr id="contentTabla3" class="contentTabla" ng-repeat="prod in vm.misProductos">
+                            <td><b class="tablesaw-cell-label">POSICIÓN</b><span class="tablesaw-cell-content">{{$index+1}}º</span></td>
+                            <td><b class="tablesaw-cell-label">PRODUCTO</b><span class="tablesaw-cell-content">{{prod.name}}</span></td>
+                            <td><b class="tablesaw-cell-label">EMPRESA</b><span class="tablesaw-cell-content"><img src="{{prod.fotoEmpresa}}" width="100"></span></td>
+                            <td><b class="tablesaw-cell-label">CANTIDAD</b><span class="tablesaw-cell-content">{{prod.cantidad}}</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+        <div class="col-lg-6 col-sm-12" id="line-comprados">
+            <div class="panel panel-default">
+                <div class="panel-heading">Mis productos más comprados</div>
+                <div class="panel-body">
+                    <canvas id="bar3" class="chart chart-bar chart-xl" data="bar3.data" labels="bar3.labels" legend="true"
+                            options="bar3.options" colours="bar3.colours" series="bar3.series"></canvas>
+                </div>
+            </div>
+        </div>
+        <!--</div>-->
+    </div>
+    <!-- Productos más comprados en EasyCount -->
+    <div ng-if="vm.estadisticas==4">
+        <div class="panel-body col-lg-6 col-sm-12">
+            <div class="dataTable_wrapper">
+                <table class="tablesaw tablesaw-stack table"  id="dataTables-prods">
+                    <thead>
+                    <tr id="cabeceraTabla" class="cabeceraTabla">
+                        <th>Posición</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr id="contentTabla" class="contentTabla" ng-repeat="prod in vm.productosCom">
+                        <td><b class="tablesaw-cell-label">POSICIÓN</b><span class="tablesaw-cell-content">{{$index+1}}</span></td>
+                        <td><b class="tablesaw-cell-label">PRODUCTO</b><span class="tablesaw-cell-content">{{prod.name}}</span></td>
+                        <td><b class="tablesaw-cell-label">CANTIDAD</b><span class="tablesaw-cell-content">{{prod.vecesComprado}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+        <div class="col-lg-6 col-sm-12" id="line-compradoscom">
+            <div class="panel panel-default">
+                <div class="panel-heading">Productos más comprados por la comunidad</div>
+                <div class="panel-body">
+                    <canvas id="bar4" class="chart chart-bar chart-xl" data="bar4.data" labels="bar4.labels" legend="true"
+                            options="bar4.options" colours="bar4.colours" series="bar4.series"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS para menuLine -->
+<script src="js/menuLine/classie.js"></script>
+<script src="js/menuLine/clipboard.min.js"></script>
+<script ng-if="vm.cargadoEstad1 || vm.cargadoEstad2 || vm.cargadoEstad3 || vm.cargadoEstad4 ">
+    (function() {
+        [].slice.call(document.querySelectorAll('.menu')).forEach(function(menu) {
+            var menuItems = menu.querySelectorAll('.menu__link'),
+                    setCurrent = function(ev) {
+                        ev.preventDefault();
+                        var item = ev.target.parentNode; // li
+                        // return if already current
+                        if (classie.has(item, 'menu__item--current')) {
+                            return false;
+                        }
+                        // remove current
+                        classie.remove(menu.querySelector('.menu__item--current'), 'menu__item--current');
+                        // set current
+                        classie.add(item, 'menu__item--current');
+                    };
+            [].slice.call(menuItems).forEach(function(el) {
+                el.addEventListener('click', setCurrent);
+            });
+        });
+        [].slice.call(document.querySelectorAll('.link-copy')).forEach(function(link) {
+            link.setAttribute('data-clipboard-text', location.protocol + '//' + location.host + location.pathname + '#' + link.parentNode.id);
+            new Clipboard(link);
+            link.addEventListener('click', function() {
+                classie.add(link, 'link-copy--animate');
+                setTimeout(function() {
+                    classie.remove(link, 'link-copy--animate');
+                }, 300);
+            });
+        });
+    })(window);
+</script>

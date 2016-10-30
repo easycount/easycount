@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="corporativeApp" ng-controller="corporativeAppCtrl as vm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>EasyCount - Quiénes somos</title>
+    <link rel="shortcut icon" href="../images/easycountlogo.png">
+    <link rel="stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href = "./styles/estilo.css">
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <!-- CABECERA -->
+    <header>
+        <% if(user){%>
+        <div ng-include="'/includes/navLogged.html'"></div>
+        <% }else{ %>
+        <div ng-include="'/includes/nav.html'"></div>
+        <% }%>
+    </header>
+    <!-- CONTENIDO -->
+    <section ng-class="vm.bodyClass">
+        <article class="nosotros col-lg-5 col-md-11 col-sm-11">
+            <h3 class="col-lg-6 col-xs-12">Ramón Arenal Gutiérrez</h3>
+            <img class="col-lg-6 col-md-6 col-sm-6 fotoAvatar" alt="foto Ramon Arenal" src="images/ava-1.png">
+            <p class="col-lg-6 col-md-6 col-sm-6">Jefe de proyecto, fundador original y programador auxiliar back-end. El entusiasta que necesita todo equipo de desarrollo.</p>
+        </article>
+        <article class="nosotros col-lg-5 col-md-11 col-sm-11">
+            <h3 class="col-lg-6 col-xs-12">Daniel Sánchez García</h3>
+            <img class="col-lg-6 col-md-6 col-sm-6 fotoAvatar" alt="foto Daniel Sánchez" src="images/ava-1.png">
+            <p class="col-lg-6 col-md-6 col-sm-6">Programador back-end y fundador original. Trabajador nato, constancia y esfuerzo. Además cuenta con experiencia previa en SIME S.L.</p>
+        </article>
+        <article class="nosotros col-lg-5 col-md-11 col-sm-11">
+            <h3 class="col-lg-6 col-xs-12">Marc Ibi Álvarez</h3>
+            <img class="col-lg-6 col-md-6 col-sm-6 fotoAvatar" alt="foto Marc Ibi" src="images/ava-1.png">
+            <p class="col-lg-6 col-md-6 col-sm-6">Programador front-end del proyecto. Todo eficiencia y concentración. También trabaja a tiempo parcial en una empresa en Vila Joiosa.</p>
+        </article>
+        <article class="nosotros col-lg-5 col-md-11 col-sm-11">
+            <h3 class="col-lg-6 col-xs-12">Miguel Soriano Sanz</h3>
+            <img class="col-lg-6 col-md-6 col-sm-6 fotoAvatar" alt="foto Miguel Soriano" src="images/ava-1.png">
+            <p class="col-lg-6 col-md-6 col-sm-6">Programador a distancia residente en Noruega. Nuestra voz de la conciencia, el Pepito Grillo del desarrollo web.</p>
+        </article>
+
+        <article class="nosotros col-lg-5 col-md-11 col-sm-11">
+            <h3 class="col-lg-6 col-xs-12">Francisco Laport López</h3>
+            <img class="col-lg-6 col-md-6 col-sm-6 fotoAvatar" alt="foto Francisco Laport" src="images/ava-1.png">
+            <p class="col-lg-6 col-md-6 col-sm-6">Emprendedor por naturaleza con una ambición que ya quisiéramos el resto. Residente en Polonia como programador auxiliar.</p>
+        </article>
+        <article class="nosotros col-lg-5 col-md-11 col-sm-11">
+            <h3 class="col-lg-6 col-xs-12">Enrique Santisteban Mojares</h3>
+            <img class="col-lg-6 col-md-6 col-sm-6 fotoAvatar" alt="foto Enrique Santisteban" src="images/ava-1.png">
+            <p class="col-lg-6 col-md-6 col-sm-6">Programador front-end. Experiencia contrastada en la empresa alicantina: NanoNino S.L.</p>
+        </article>
+    </section>
+</body>
+</html>

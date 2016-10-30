@@ -1,0 +1,85 @@
+<script>
+
+
+</script>
+
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>Valoraciones</strong></h1>
+        <i>Comparte con la comunidad tu valoración de los productos que has comprado</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div id="loaderValoraciones" class="bubbles">
+    <span></span>
+    <span id="bubble2"></span>
+    <span id="bubble3"></span>
+</div>
+<div class="row" ng-if="vm.cargado == true">
+    <div id="buscador" class="col-lg-12 col-md-12 col-xs-12 buscador">
+        <div class="panel-body">
+            <section class="col-lg-3 col-md-6 col-xs-12">
+                <strong class="uppercase">Nombre:</strong>
+                <input type="text" ng-model=vm.buscadorNombre ng-change="vm.busquedaPorNombre()"/>
+            </section>
+
+            <section class="col-lg-3 col-md-6 col-xs-12">
+                <strong class="uppercase">Tipo:</strong>
+                <select ng-change="vm.recargarPagina()" ng-model=vm.buscadorTipo>
+                    <option value="">Todos</option>
+                    <option ng-repeat="tipo in vm.tiposDisponibles" value="{{tipo}}">{{tipo}}</option>
+                </select>
+            </section>
+
+            <section class="col-lg-3 col-md-6 col-xs-12">
+                <strong class="uppercase">Ordenar por:</strong>
+                <select ng-change="vm.cambiarPaginacion(vm.paginacionActual)" ng-model="vm.orden">
+                    <option value="name">Nombre</option>
+                    <option value="precio">Precio</option>
+                    <option value="type">Tipo</option>
+                </select>
+            </section>
+            <section class="col-lg-3 col-md-6 col-xs-12">
+                <strong class="uppercase"> Invertir</strong>
+                <input type="checkbox" ng-change="vm.cambiarPaginacion(vm.paginacionActual)" ng-model="vm.invertir" />
+            </section>
+    </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table ng-if="prodAValorar[0] != empty" class="tablesaw tablesaw-stack table"  id="dataTables-comercios">
+                <thead>
+                <tr id="cabeceraTabla">
+                    <th>Producto</th>
+                    <th>Nombre</th>
+                    <th>Fecha de compra</th>
+                    <th>Precio</th>
+                    <th>Supermercado</th>
+                    <th>Controles</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr id="contentTabla" ng-repeat="producto in prodAValorar">
+                        <td ><b class="tablesaw-cell-label">PRODUCTO</b><span style="cursor:pointer" ui-sref="dashboard.producto({id: producto._id })" class="tablesaw-cell-content"><img ng-src="{{producto.photo}}"  height="100"></span></td>
+                        <td ><b class="tablesaw-cell-label">NOMBRE</b><span class="tablesaw-cell-content punteroEnlace" ui-sref="dashboard.producto({id: producto._id })" >{{producto.name}}</span></td>
+                        <td><b class="tablesaw-cell-label">FECHA DE COMPRA</b><span class="tablesaw-cell-content">{{vm.formatearFecha(producto.fecha)}}</span></td>
+                        <td><b class="tablesaw-cell-label">PRECIO</b><span class="tablesaw-cell-content">{{producto.precio}}  €/ud</span></td>
+                        <td><b class="tablesaw-cell-label">SUPERMERCADO</b><span class="tablesaw-cell-content"><img ng-src="{{producto.empresa}}" width="100"></span></td>
+                        <td>
+                            <button type="button" ng-click="botonAlert('Event', producto.name, producto._id, producto.idEmpresa)" ng-init="comprobarOpinado(producto._id, producto.idEmpresa, $index)" ng-disabled="activoOp[$index]" class="btn btn-easy botonComent"><i class="fa fa-comment"></i></button>
+                            <button type="button" ng-click="botonPuntuar('Event', producto.name, producto._id, producto.idEmpresa)" ng-init="comprobarValorado(producto._id, producto.idEmpresa, $index)" ng-disabled="activoVa[$index]" class="btn btn-easy botonComent"><i class="fa fa-star"></i></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div ng-if="vm.numPags>1" id="navegacionPags">
+                <span ng-click="vm.cambiarPaginacion(vm.paginacionActual-1)"> <i class="fa fa-chevron-left"></i>  </span>
+                <span ng-if="i==1 || i==vm.navegacion.length-1 || (i>vm.paginacionActual-2&&i<vm.paginacionActual+2)" ng-class="i==vm.paginacionActual ? 'navegacionMarcado':''" ng-click="vm.cambiarPaginacion(i)" ng-repeat="i in vm.navegacion"> <span class="puntosDer" ng-if="i==vm.navegacion.length-1 && vm.paginacionActual<vm.numPags-3">...</span>{{i}}<span class="puntosIzd" ng-if="i==1 && vm.paginacionActual>3">...</span> </span>
+                <span ng-click="vm.cambiarPaginacion(vm.paginacionActual+1)"> <i class="fa fa-chevron-right"></i> </span>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.ro

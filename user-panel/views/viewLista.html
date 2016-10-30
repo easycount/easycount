@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="">{{vm.nombreLista}}</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+    <div class="col-lg-12 navigation">
+        <a ui-sref="dashboard.listas">Listas</a> >> <span href="#"><b> {{vm.nombreLista}}</b></span>
+    </div>
+</div>
+<div id="loaderListas2" class="bubbles">
+    <span></span>
+    <span id="bubble2"></span>
+    <span id="bubble3"></span>
+</div>
+<div class="row" ng-if="vm.cargado==true">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="buscador panel-heading col-lg-12 col-md-12 col-xs-12 ">
+                <section class="col-lg-3 col-md-6 col-xs-12">
+                    <strong class="uppercase">Nombre:</strong>
+                    <input type="text" ng-model=vm.buscadorListasNombre />
+                </section>
+                <section class="col-lg-4 col-md-6 col-xs-12">
+                    <strong class="uppercase">Supermercado</strong>
+                    <input type="text" ng-model=vm.buscadorListasEmpresa />
+                </section>
+                <section class="col-lg-3 col-md-6 col-xs-12">
+                    <strong class="uppercase">Ordenar por:</strong>
+                    <select ng-model="vm.ordenLista">
+                        <option selected="selected" value="name">Nombre</option>
+                        <option value="cantidad">Cantidad</option>
+                        <option value="precio">Precio</option>
+                        <option value="nombreEmpresa">Empresa</option>
+                    </select>
+                </section>
+
+                <section class="col-lg-2 col-md-6 col-xs-12">
+                    <strong class="uppercase"> Invertir</strong>
+                    <input type="checkbox" ng-model="vm.invertirLista" />
+                </section>
+
+                <button ui-sref="dashboard.table" class="btn-easy btnAñadirProds">Añadir productos</button>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                <div class="dataTable_wrapper">
+                    <table ng-show="!vm.listaVacia" class="tablesaw tablesaw-stack table"  id="dataTables-lista">
+                        <thead>
+                        <tr id="cabeceraTabla">
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Supermercado</th>
+                            <th>Producto</th>
+                            <th ng-show="vm.listasUsu">Controles</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="contentTabla" ng-repeat="producto in vm.productosEnLista | filter: {name: vm.buscadorListasNombre, nombreEmpresa:vm.buscadorListasEmpresa} | orderBy:vm.ordenLista:vm.invertirLista"> <!-- orderBy:predicate:reverse -->
+                            <td><b class="tablesaw-cell-label">NOMBRE</b><span ui-sref="dashboard.producto({id: producto.prod_id })" class="punteroEnlace tablesaw-cell-content">{{producto.name}}</span></td>
+                            <td><b class="tablesaw-cell-label">CANTIDAD</b><span class="tablesaw-cell-content">{{producto.cantidad}}</span></td>
+                            <td><b class="tablesaw-cell-label">PRECIO</b><span class="tablesaw-cell-content">{{producto.precio}}€</span></td>
+                            <td><b class="tablesaw-cell-label">SUPERMERCADO</b><span class="tablesaw-cell-content"><img src="{{producto.empresa}}" width="100"></span></td>
+                            <td><b class="tablesaw-cell-label">PRODUCTO</b><span class="tablesaw-cell-content"><img src="{{producto.photo}}" width="100"></span></td>
+                            <td ng-show="vm.listasUsu" style="vertical-align:middle">
+                                <button type="button" ng-click="vm.restarCantidad(producto._id, $index)" class="btn btn-easy">-</button> &nbsp; <button type="button" ng-click="vm.sumarCantidad(producto._id, $index)" class="btn btn-easy">+</button><br><br>
+                                <button type="button" ng-click="vm.eliminarProducto(producto.name, producto._id)" class="btn btn-error cancelar">Eliminar de la lista</button>
+                            </td>
+                        </tr>
+                        <tr ng-if="vm.promocionesDesglosadas.length>0"><td colspan="6" id="filaPromo">PROMOCIONES APLICADAS</td></tr>
+                        <tr id="promo{{$index}}" class="promos" ng-repeat="promo in vm.promocionesDesglosadas| orderBy:'fhasta'">
+                            <td class="contentTabla" style="cursor:pointer">{{promo.name}}</td>
+                            <td>{{promo.tipo}} </td>
+                            <td class="hola">-{{promo.valorDescuento | number:2}} €</td>
+                            <td><img src="{{promo.photoEmpresa}}" width="100"></td>
+                            <td>{{promo.producto}}</td>
+                            <td><b>Desde</b> {{vm.formatearFechaPretty(promo.f_desde)}} <br /><b>hasta</b> {{vm.formatearFechaPretty(promo.f_hasta)}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL</strong></td>
+                            <td>{{vm.totalCantidad}}</td>
+                            <td>{{vm.totalPrecio | number:2}} €</td>
+                            <td></td>
+                            <td ng-show="vm.listasUsu"><button type="button" ng-click="vm.generarTicket()" class="btn btn-error">Generar ticket</button></td>
+                            <td><button type="button" onclick="javascript:demoFromHTML();" class="btn btn-error">Generar PDF</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="vm.listaVacia">
+                        Aún no has añadido productos a esta lista.
+                    </div>
+                </div>
+            </div>
+
+            <div align="center" style="background-color:white; display:none;" id="impresion">
+                <img  width="200" height="200" src="images/logo.jpg"/><br>
+                <h1>Lista {{vm.nombreLista}}</h1>
+                <br>
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" style="text-align:center;" id="dataTables-list">
+                        <thead>
+                        <tr>
+                            <th style="text-align:center;">Nombre</th>
+                            <th style="text-align:center;">Cantidad</th>
+                            <th style="text-align:center;">Precio</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Comentario -->
+                        <tr ng-repeat="producto in vm.productosEnLista">
+                            <td style="vertical-align:middle">{{producto.name}}</td>
+                            <td style="vertical-align:middle">{{producto.cantidad}}</td>
+                            <td style="vertical-align:middle">{{producto.precio}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL</td>
+                            <td>{{vm.totalCantidad}}</td>
+                            <td><b>{{vm.totalPrecio | number:2}} Euros</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->

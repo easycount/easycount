@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Producto {{vm.producto.name}}</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row ">
+    <div class="col-md-12 col-sm-12">
+
+        <div class="tab-content">
+            <fieldset style="margin-bottom: 20px;">
+
+                <legend>General information</legend>
+
+                <div class="row ">
+
+                    <div class="col-md-4 col-sm-4">
+                            <img class="col-md-6 col-sm-6" src="{{vm.producto.photo}}"/>
+                    </div>
+
+
+                    <div class="col-md-3 col-sm-3">
+                        <div class="form-group">
+                            <label>Referencia : </label>
+                            <input type="nombre" readonly value='{{vm.producto._id}}' class="submitable form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="form-group">
+                            <label>Nombre : </label>
+                            <input type="nombre" readonly value='{{vm.producto.name}}' class="submitable form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="form-group">
+                            <label>Código de barras : </label>
+                            <input type="nombre" readonly value='{{vm.producto.barcode}}' class="submitable form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="form-group">
+                            <label>Tipo : </label>
+
+                            <input type="nombre" readonly value='{{vm.producto.type}}' class="submitable form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                        <div>
+                            <br /><label>Descripcion : </label><br />
+                            <div id="descc"></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-comments"></i>
+        Comentarios
+    </div>
+    <div class="panel-body">
+         <span ng-if="vm.comentarios.texto[0]==empty">
+            No hay comentarios.
+             <span ng-if="vm.productoComprado">
+                 Se el primero en opinar!
+             </span>
+        </span>
+        <div>
+            <button ng-if="productoComprado && !productoComentado" type="button" ng-click="botonAlert('Event', vm.producto.name)" class="btn btn-success">Opinar</button>
+
+            <table ng-if="vm.comentarios.texto[0]!=empty"  class="tablesaw tablesaw-stack table table-striped table-bordered" style="margin-top:5px; text-align:center;" >
+                <thead>
+                <tr id="cabeceraTabla">
+                    <th class="col-md-2">USUARIO</th>
+                    <th class="col-md-10">COMENTARIO</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="contentTabla" class="ng-scope" ng-repeat="usuarioComentario in vm.comentarios.usuarios " >
+                    <td><b class="tablesaw-cell-label col-md-1" >USUARIO</b><span class="tablesaw-cell-content ng-binding">{{vm.comentarios.usuarios[$index]}}</span></td>
+                    <td><b class="tablesaw-cell-label col-md-11">COMENTARIO</b><span class="tablesaw-cell-content ng-binding">{{vm.comentarios.texto[$index]}}</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

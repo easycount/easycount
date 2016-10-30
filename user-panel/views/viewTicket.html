@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Ticket del {{vm.formatearFechaPretty(vm.fechaTicket)}}</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+    <div class="col-lg-12 navigation">
+        <a ui-sref="dashboard.tickets">Historial de compras</a> >> <span href="#"><b> Ticket del {{vm.formatearFechaPretty(vm.fechaTicket)}}</b></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Contenido del ticket del {{vm.formatearFechaPretty(vm.fechaTicket)}}
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table ng-show="!vm.ticketVacio" class="table table-striped table-bordered" style="text-align:center;" id="dataTables-lista">
+                        <thead>
+                        <tr id="cabeceraTabla">
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Producto</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-init="vm.cargarPreciosTicket()" id="contentTabla" ng-repeat="producto in vm.productosEnTicket | orderBy:'name'">
+                            <td class="contentTabla" style="cursor:pointer" ui-sref="dashboard.producto({id: producto._id })">{{producto.name}}</td>
+                            <!--<td class="hola">{{vm.dameCantidad(producto._id)}}</td>-->
+                            <td class="hola">{{producto.cantidad}}</td>
+                            <!--<td>{{producto.precio}} €/ud. </td>-->
+                            <td>{{producto.precio}} €/ud. </td>
+                            <td><img ng-src="{{producto.photo}}" width="100"></td>
+
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL</strong></td>
+                            <td ng-init="vm.calcularCantidadTotal()">{{vm.totalCantidad}}</td>
+                            <td>{{vm.totalPrecio}} €</td>
+                            <td ng-show="vm.listasUsu"></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="vm.ticketVacio">
+                        Aún no has añadido productos a esta lista.
+                    </div>
+                </div>
+            </div>
+
+            <div align="center" style="background-color:white; visibility:hidden;" id="impresion">
+                <img  width="200" height="200" src="images/logo.jpg"/><br>
+                <h1>Ticket del {{vm.fechaTicket}}</h1>
+                <br>
+                <div class="dataTable_wrapper">
+                    <!--<table class="table table-striped table-bordered table-hover" style="text-align:center;" id="dataTables-list">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th style="text-align:center;">Nombre</th>-->
+                            <!--<th style="text-align:center;">Cantidad</th>-->
+                            <!--<th style="text-align:center;">Precio</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--&lt;!&ndash; Comentario &ndash;&gt;-->
+                        <!--<tr ng-repeat="producto in vm.productosEnLista">-->
+                            <!--<td style="vertical-align:middle">{{producto.name}}</td>-->
+                            <!--<td style="vertical-align:middle">{{vm.dameCantidad(producto._id)}}</td>-->
+                            <!--<td style="vertical-align:middle">{{producto.precio}}</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>TOTAL</td>-->
+                            <!--<td>{{vm.calcularCantidadTotal()}}</td>-->
+                            <!--<td><b>{{vm.total[0].precio}} Euros</b></td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->

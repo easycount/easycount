@@ -1,0 +1,109 @@
+<div id="container_demo" >
+    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+    <a class="hiddenanchor" id="toregister"></a>
+    <a class="hiddenanchor" id="tologin"></a>
+    <div id="wrapper">
+        <div id="login" class="animate form">
+            <!-- <form ng-submit="vm.userLogin()" autocomplete="on"> -->
+            <form action="/loginLocal" method="POST" autocomplete="on">
+                <h1>Log in</h1>
+                <p>
+                    <label  for="username" class="uname" data-icon="u" > Tu email </label>
+                    <input autofocus ng-model="vm.useremail" id="username" name="username" required="required" type="email" placeholder="mymail@mail.com"/>
+                </p>
+                <p>
+                    <label for="password" class="youpasswd" data-icon="p"> Tu contraseña </label>
+                    <input ng-model="vm.userpass" id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO " />
+                </p>
+                <p class="keeplogin">
+                    <input ng-model="vm.keeplogin" type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
+                    <label for="loginkeeping">No cerrar sesión</label>
+                </p>
+                <p class="login button">
+                    <input type="submit" value="Login" />
+                </p>
+                ¿Aún no eres miembro?
+                <p class="change_link change_link_login col-lg-12 col-md-12 col-xs-12">
+                    <a target="_self" href="#toregister" class="to_register">Regístrate</a>
+                    <a href="/auth/twitter" id="twitter"><i class="fa fa-twitter"></i> Login con Twitter</a>
+                    <a href="/auth/google" id="google"><i class="fa fa-google-plus"></i> Login con Google+</a>
+                </p>
+                <br><br>
+            </form>
+        </div>
+
+        <div id="register" class="animate form" autocomplete="on">
+            <!-- <form ng-submit="vm.userRegistration()" autocomplete="on"> -->
+            <form id="formRegistro" ng-submit="vm.enviarForms()" action="/registerLocal" method="POST" autocomplete="on">
+                <h1> Registro {{vm.useremail}} </h1>
+                <p>
+                    <label for="usernamesignup" class="uname" data-icon="u">Nombre y apellidos</label>
+                    <input ng-model="vm.username" id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="José López" />
+                </p>
+                <p>
+                    <label for="emailsignup" class="youmail" data-icon="e" > Tu email</label>
+                    <input ng-model="vm.useremail" id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/>
+                </p>
+                <p>
+                    <label for="passwordsignup" class="youpasswd" data-icon="p">Tu contraseña </label>
+                    <input ng-model="vm.userpass1" id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                </p>
+                <p>
+                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Por favor, confirma tu contraseña </label>
+                    <input ng-model="vm.userpass2" id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                </p>
+                <p>
+                    <label for="fechasignup" class="youdate" data-icon="c">Fecha de nacimiento </label>
+                    <input ng-model="vm.userdate" id="fechasignup" name="fechasignup" required="required" type="date" placeholder="eg. 01/12/1987"/>
+                </p>
+                <p>
+                    <label class="youdate">Sexo:</label><br />
+                    <label class="sublabel" for="sexosignupH">Hombre</label>
+                    <input ng-model="vm.usersex" id="sexosignupH" name="sexosignup" required="required" value="Hombre" type="radio" />
+                    <label class="sublabel" for="sexosignupM">Mujer</label>
+                    <input ng-model="vm.usersex" id="sexosignupM" name="sexosignup" required="required" value="Mujer" type="radio" />
+                </p>
+                <p>
+                    <label class="youdate">Restricciones:</label><br />
+
+                    <div class="nowrap">
+                        <input ng-model="vm.uservegetariano" id="vegetarianosignup" name="vegetarianosignup" value="vegetariano" type="checkbox" />
+                        <label class="sublabel" for="vegetarianosignup">Vegetariana/o</label>
+                    </div>
+                    <div class="nowrap">
+                        <input ng-model="vm.userceliaco" id="celiacosignup" name="celiacosignup" value="celiaco" type="checkbox" />
+                        <label class="sublabel" for="celiacosignup">Celiaca/o</label>
+                    </div>
+
+                    <div class="nowrap">
+                        <input ng-model="vm.userlactosa" id="lactosasignup" name="lactosasignup" value="lactosa" type="checkbox" />
+                        <label class="sublabel" for="lactosasignup">Intolerante a la lactosa</label>
+                    </div>
+
+                    <div class="nowrap">
+                        <input ng-model="vm.userdiabetico" id="diabeticosignup" name="diabeticosignup" value="diabetico" type="checkbox" />
+                        <label class="sublabel" for="diabeticosignup">Diabética/o</label>
+                    </div>
+
+                    <div class="nowrap">
+                        <input ng-model="vm.userfrutos" id="frutossignup" name="frutossignup" value="frutos" type="checkbox" />
+                        <label class="sublabel" for="frutossignup">Alérgica/o a los frutos secos</label>
+                    </div>
+                </p>
+                <p>
+                    <label for="personassignup" data-icon="g">Número de personas para las que compras</label>
+                    <input ng-model="vm.userpersonas" id="personassignup" name="personassignup" required="required" type="number" placeholder="eg. 3"/>
+                </p>
+                <label for="avatarsignup" data-icon="f">Avatar (opcional)</label>
+                <input type="file" id="avatarsignup" file-model="vm.myFile" name="avatarsignup" />
+                <p class="signin button">
+                    <input id="bsignup" type="submit" value="Sign up"/>
+                </p>
+            </form>
+                <p class="change_link col-lg-12 col-md-12 col-xs-12">
+                    ¿Ya eres miembro?
+                    <a target="_self" href="#tologin" class="to_register"> Iniciar sesión </a>
+                </p>
+        </div>
+    </div>
+</div>

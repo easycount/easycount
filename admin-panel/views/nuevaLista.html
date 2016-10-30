@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase">Nueva Lista</h1>
+        <i>Crea una nueva lista en EasyCount</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Nueva Lista</strong>
+    </div>
+
+    <div class="panel-body">
+        <form class="form-horizontal">
+            <fieldset>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="nombre">Nombre</label>
+                    <div class="col-md-4">
+                        <input id="nombre" ng-model="vm.nombre" type="text" placeholder="Nombre" class="form-control input-md">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="descripcion">Descripcion</label>
+                    <div class="col-md-4">
+                        <textarea style="resize:none;" id="descripcion" ng-model="vm.descripcion" type="text" placeholder="Descripcion" class="form-control input-md"></textarea>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="empresa">Empresa</label>
+                    <div class="col-md-4">
+                        <select class="form-control" ng-model="selectvalue2" ng-change="hacambiado()" id="empresa">
+                            <option ng-repeat="empresa in empresas"  value="{{empresa.id}}">
+                                {{empresa.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="mySel">Producto</label>
+                    <div class="col-md-4">
+                        <select id="mySel" class="form-control">
+                            <option ng-repeat="item in productosTipos" value="{{item.id}}" ng-selected="item.selected" ng-model="item.tag">{{item.nombre}}</option>
+                        </select>
+
+                        <!--<select id="productosTipos">
+                            <option ng-repeat="productosTipo in productosTipos"  value="">
+                                {{productosTipo.nombre}}
+                            </option>
+                        </select>-->
+                    </div>
+                </div>
+
+                <div id="cantidad" class="form-group">
+                </div>
+
+
+                <br><br>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="crear"></label>
+                    <div class="col-md-6">
+                        <button id="crear" name="crear" class="btn btn-easy" ng-click="crearLista()">Crear lista</button>
+                        <button id="verProductos" name="crear" class="btn btn-accept" ng-click="verLista()">Ver productos en la lista</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>

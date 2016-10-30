@@ -1,0 +1,212 @@
+@font-face {
+    font-family: free39;
+    src: url("3OF9_NEW.eot");
+}
+
+@font-face {
+    font-family:free39;
+    src: url("3OF9_NEW.TTF"); /* TTF file for CSS3 browsers */
+}
+
+#change{
+    font-family:free39;
+}
+
+
+#cabeceraTabla > th{
+    text-align: center;
+}
+#contentTabla > td{
+    vertical-align: middle;
+}
+#nuevoComercioButton{
+    margin-bottom: 15px;
+    margin-left: -15px;
+}
+
+.ng-scope #wrapper{
+    background-color: #1F1F1F;
+}
+
+body{
+    font-family:"Open Sans", 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#buscador{
+    margin-bottom: 3em;
+    border-bottom: 1px solid #00A731;
+}
+#cabeceraTabla{
+    font-size: medium;
+}
+#cabeceraTabla > th{
+    font-weight: bold;
+}
+#contentTabla{
+    font-size: small;
+}
+#contentTabla > td, .contentTabla > td{
+    vertical-align: middle !important;
+}
+.btn-easy{
+    background-color: #00A731;
+    color:white;
+    border-radius: 0;
+
+}
+
+.btn-easy-invert, .headerListasSel, .headerListas:active,.headerListas:focus{
+    background-color: transparent;
+    color:#00A731;
+    border: solid 1px #00A731;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    border-radius:0;
+}
+.panel-body table #contentTabla .btn-easy ,.panel-heading .btn-easy, #importacion .btn-easy{
+    margin-top:0.5em;
+}
+.input-number-easy{
+    width: 4.5em;
+    display: inline;
+    border-radius: 0;
+}
+
+.form-control{
+    border-radius:0;
+}
+.form-control:focus{
+    border-color: #00A731;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+}
+#headerInput{
+    margin-top: 1em;
+}
+
+#gastoTiempo section p {
+    display: inline-block;
+}
+#gastoTiempo section p:first-child{
+    margin-right: 1em;
+}
+.easy{
+    color: #00A731;
+}
+table tbody #contentTabla{
+    color: #585757;
+}
+.cancelar{
+    background-color: #D50000;
+    color: white;
+    border-radius: 0;
+}
+.page-header{
+    color:dimgrey;
+}
+
+.checkEmpresas input[type="checkbox"], .checkEmpresas label{
+    display: inline;
+}
+
+.ng-scope #wrapper{
+    background-color: #1F1F1F;
+}
+
+#descripcionProducto{
+    height: 300px;
+}
+
+#imagenProducto{
+    width: auto; /* you can use % */
+    height: 300px;
+    min-width: 250px;
+    max-width: 490px;
+    margin-left:auto;
+    margin-right:auto;
+    display:table;
+}
+
+#contenedorImagenProducto{
+    max-width: 520px;
+}
+
+.punteroEnlace{
+    cursor: pointer;
+}
+
+a{
+    cursor: pointer;
+}
+
+
+.estrellas span {
+    text-decoration: none;
+    display: inline-block;
+    font-size: 4rem;
+    cursor:default;
+
+    color: #BCF5A9;
+}
+
+.estrellaSeleccionada{
+    color: #04B404 !important;
+}
+
+
+.mensajeError{
+    color: #F00;
+}
+
+.navigation a , .navigation span{
+    color:#00A731;
+}
+
+#selectCantidad {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    -webkit-appearance: none;
+    padding: 0.5em;
+    border-radius: 0.5px ;
+}
+
+#menos , #mas {
+    padding: 0.5em 0.5em;
+    background-color: #04B404;
+}
+
+#navegacionPags{
+    text-align: right;
+}
+
+#navegacionPags *{
+    font-weight: bold;
+    color: #00A731;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+#navegacionPags *:hover{
+    color: #1F8602;
+}
+
+.checkEmpresa{
+    display: inline-block;
+    margin-left: 2em;
+}
+
+.list-group-item{
+    border:none;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.valoracionMediaProd{
+    font-size: medium;
+    margin-top: 1em;
+    margin-bottom:1em;
+}

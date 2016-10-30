@@ -1,0 +1,98 @@
+<link rel="stylesheet" type="text/css" href="styles/table/default.css" />
+<link rel="stylesheet" type="text/css" href="styles/table/component.css" />
+<script src="js/table/modernizr.custom.js"></script>
+
+<!-- CSS menu items -->
+<link rel="stylesheet" type="text/css" href="styles/menuLine/normalize.css" />
+<link rel="stylesheet" type="text/css" href="styles/menuLine/demo.css" />
+<link rel="stylesheet" type="text/css" href="styles/menuLine/component.css" />
+
+<div class="row">
+    <div class="col-lg-12 page-header text-center">
+        <h1 class="uppercase"><strong>Promociones</strong></h1>
+        <i>Consulta las promociones personalizadas que nuestro sistema tiene para ti.</i>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div id="loaderPromociones" class="bubbles">
+    <span></span>
+    <span id="bubble2"></span>
+    <span id="bubble3"></span>
+</div>
+
+<div class="main" ng-if="vm.cargado == true">
+    <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+        <div class="cbp-vm-options">
+            <section class="section section--menu" id="Caliban">
+                <nav class="menu menu--caliban">
+                    <ul class="menu__list">
+                        <li class="menu__item menu__item--current"><a href="javascript:void(0)" ng-click="vm.cambiarPestanya(0)" class="menu__link">Personalizadas</a></li>
+                        <li class="menu__item"><a href="javascript:void(0)" ng-click="vm.cambiarPestanya(1)" class="menu__link">Basadas en compras</a></li>
+                    </ul>
+                </nav>
+            </section>
+            <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid">Grid View</a>
+            <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
+        </div>
+        <ul>
+            <li ng-repeat="lista in vm.listas" tabla-item>
+
+                <h3 class="cbp-vm-title">{{lista.name}}</h3>
+                <div class="cbp-vm-price">
+                    <span>
+                        Desde : {{vm.formatearFechaPretty(lista.f_desde)}}<br>
+                        Hasta : {{vm.formatearFechaPretty(lista.f_hasta)}}
+                    </span>
+                </div>
+                <div class="cbp-vm-details">
+                    {{lista.description}}
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div ng-if="!vm.hayListas">
+        No existe ninguna promoción disponible en estos momentos.
+    </div>
+</div>
+
+<!-- JS para tabla -->
+<script src="js/table/classie.js"></script>
+<script src="js/table/cbpViewModeSwitch.js"></script>
+
+<!-- JS para menuLine -->
+<script src="js/menuLine/classie.js"></script>
+<script src="js/menuLine/clipboard.min.js"></script>
+<script ng-if="vm.cargado==true">
+    (function() {
+        [].slice.call(document.querySelectorAll('.menu')).forEach(function(menu) {
+            var menuItems = menu.querySelectorAll('.menu__link'),
+                    setCurrent = function(ev) {
+                        ev.preventDefault();
+                        var item = ev.target.parentNode; // li
+                        // return if already current
+                        if (classie.has(item, 'menu__item--current')) {
+                            return false;
+                        }
+                        // remove current
+                        classie.remove(menu.querySelector('.menu__item--current'), 'menu__item--current');
+                        // set current
+                        classie.add(item, 'menu__item--current');
+                    };
+            [].slice.call(menuItems).forEach(function(el) {
+                el.addEventListener('click', setCurrent);
+            });
+        });
+        [].slice.call(document.querySelectorAll('.link-copy')).forEach(function(link) {
+            link.setAttribute('data-clipboard-text', location.protocol + '//' + location.host + location.pathname + '#' + link.parentNode.id);
+            new Clipboard(link);
+            link.addEventListener('click', function() {
+                classie.add(link, 'link-copy--animate');
+                setTimeout(function() {
+                    classie.remove(link, 'link-copy--animate');
+                }, 300);
+            });
+        });
+    })(window);
+</script>
